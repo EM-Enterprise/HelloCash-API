@@ -11,6 +11,12 @@
     "declarationMap": true,
     "stripInternal": true,
     "noImplicitAny": true,
+    "paths": {
+        "@/*": ["./*"],
+        "@/config/*": ["./config/*"],
+        "@/api/*": ["./api/*"],
+        "@/typings/*": ["./typings/*"],
+    }
   },
   "exclude": [
     "node_modules",
