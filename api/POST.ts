@@ -1,5 +1,5 @@
-import httpRequest, { RequestProps } from "./HttpRequest"
-import { getAuthorization } from "./Config"
+import httpRequest, { RequestProps } from '@/api/HttpRequest'
+import { getAuthorization } from '@/config/authorization'
 
 /**
  * @internal
