@@ -1,0 +1,7 @@
+{
+    "name": "HelloCash-API",
+    "entryPoints": ["./"],
+    "entryPointStrategy": "expand",
+    "exclude": ["node_modules/**/*", "dist/**/*", "docs/**/*", "api/**", "tests.ts"],
+    "readme": "./Readme.md"
+}
