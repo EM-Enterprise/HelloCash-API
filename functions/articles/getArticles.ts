@@ -17,7 +17,7 @@ export default async function getArticles(limit: number = -1) {
       code: a.article_code,
       taxClass: parseFloat(a.article_taxRate),
       comments: a.article_comment?.split('\r\n') ?? [],
-      category: a.article_category_id,
+      category_id: a.article_category_id,
     }),
   )
 }

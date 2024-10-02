@@ -7,15 +7,15 @@ export interface Article {
   netPrices: {
     purchasePrice: number
     sellingPrice: number
-  },
+  }
   stock: number
   comments: Array<string>
-  category: number | null
+  category_id: number | null
 }
 
 export interface RawArticles {
   articles: Array<{
-    article_id: string,
+    article_id: string
     article_category_id: number | null
     article_name: string
     article_code: string
