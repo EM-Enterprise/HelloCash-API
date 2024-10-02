@@ -15,6 +15,7 @@
         "@/*": ["./*"],
         "@/config/*": ["./config/*"],
         "@/api/*": ["./api/*"],
+        "@/typings/*": ["./typings/*"],
     }
   },
   "exclude": [
