@@ -31,27 +31,6 @@ export async function getBuyHistory(ids: Array<Article['id']>) {
 }
 
 /**
- * This function looks for exact matches of the given customer-data.
- * @param customer The customer-data that is being checked for exact matches.
- * @returns An array of customers that match the given customer-data.
- */
-export async function findExactCustomer(customer: Partial<Customer>) {
-  const customers = await getCustomers()
-
-  const exactMatches = customers.filter((c) =>
-    Object.keys(customer)
-      .map((_key) => {
-        const key = _key as keyof Customer
-
-        return c[key]?.toString().trim() === customer[key]?.toString().trim()
-      })
-      .every((el) => el),
-  )
-
-  return exactMatches
-}
-
-/**
  * This function looks for duplicate users based on the given user. In doing so it checks exact matches, partial address matches and partial name matches.
  * @param user The user-data that is being checked for duplicates.
  * @returns An array of users that match or partially match the given user-data.
