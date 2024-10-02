@@ -2,7 +2,7 @@ import { Article } from '@/typings/Article'
 import GET from '@/api/GET'
 import { RawStockChange, StockChange } from '@/typings/StockChange'
 
-export default async function getStockChanges(id: Article['id']) {
+export default async function getArticleStockChanges(id: Article['id']) {
   const changes = await GET<RawStockChange[]>(`articles/${id}/stock-changes`)
 
   return changes.map(
