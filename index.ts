@@ -38,11 +38,6 @@ export async function getCategories() {
   )
 }
 
-export async function getInvoiceBase64(invoice_id: Invoice['_id']) {
-  const { pdf_base64_encoded } = await GET<{ pdf_base64_encoded: string }>(`invoices/${invoice_id}/pdf`, ['locale=de_DE'])
-  return pdf_base64_encoded
-}
-
 export async function findInvoiceById(invoice_id: Invoice['id']): Promise<Invoice | null> {
   interface Response {
     invoices: RawInvoices['invoices']
