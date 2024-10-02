@@ -1,6 +1,4 @@
-import GET from './api/GET'
 import { Article } from './typings/Article'
-import { ArticleCategory, RawArticleCategory } from './typings/Category'
 import { Customer } from './typings/Customer'
 import { Invoice } from './typings/Invoice'
 import { getInvoices } from '@/functions/invoices/getInvoices'
@@ -24,15 +22,4 @@ export async function getBuyHistory(ids: Array<Article['id']>) {
   })
 
   return history
-}
-
-export async function getCategories() {
-  const { categories } = await GET<RawArticleCategory>('articles/categories')
-
-  return categories.map(
-    (cat): ArticleCategory => ({
-      id: cat.article_category_id,
-      name: cat.article_category_name,
-    }),
-  )
 }
