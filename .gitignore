@@ -20,6 +20,7 @@ tests.ts
 !.prettierrc.json
 !typedoc.json
 !.releaserc.json
+!.npmrc.json
 
 
 
