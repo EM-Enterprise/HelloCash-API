@@ -1,6 +1,6 @@
 {
   "name": "hellocash-api",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "dist/index",
   "types": "dist/typings/index",
@@ -8,7 +8,8 @@
     "dev": "ts-node tests",
     "build": "tsc --build tsconfig.json",
     "prepublishOnly": "tsc --build tsconfig.json  & npm run docs",
-    "docs": "typedoc --options typedoc.json"
+    "docs": "typedoc --options typedoc.json",
+    "test": "jest --coverage"
   },
   "author": "",
   "license": "ISC",
