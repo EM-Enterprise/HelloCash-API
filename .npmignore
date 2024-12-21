@@ -1,0 +1,6 @@
+.github
+.prettier.json
+.releaserc.json
+typedoc.json
+jest.config.cjs
+babel.config.cjs
