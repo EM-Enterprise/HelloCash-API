@@ -19,7 +19,7 @@ tests.ts
 !tsconfig.json
 !.prettierrc.json
 !typedoc.json
-
+!.releaserc.json
 
 
 
