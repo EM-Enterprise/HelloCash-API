@@ -11,6 +11,7 @@ permissions:
 
 env:
   GH_TOKEN: ${{ secrets.GH_TOKEN_SEMANTIC_VERSIONING }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
   semantic-versioning:
