@@ -9,6 +9,8 @@ on:
 permissions:
   contents: write
 
+env:
+  GH_TOKEN: ${{ secrets.GH_TOKEN_SEMANTIC_VERSIONING }}
 
 jobs:
   semantic-versioning:
