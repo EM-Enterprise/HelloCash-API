@@ -1,10 +1,6 @@
 name: Automatic Semantic Versioning
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+on: push
 
 permissions:
   contents: write
