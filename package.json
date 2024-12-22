@@ -39,9 +39,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/EM-Enterprise/HelloCash-API.git"
+    "url": "git+https://github.com/EM-Enterprise/HelloCash-API.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
   }
 }
