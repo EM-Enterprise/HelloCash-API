@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "ts-node tests",
     "build": "tsc --build tsconfig.json",
-    "prepublishOnly": "tsc --build tsconfig.json  & npm run docs",
+    "prepublishOnly": "tsc --build tsconfig.json",
     "docs": "typedoc --options typedoc.json"
   },
   "author": "",
