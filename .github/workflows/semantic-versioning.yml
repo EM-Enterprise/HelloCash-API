@@ -1,10 +1,6 @@
 name: Automatic Semantic Versioning
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+on: push
 
 permissions:
   contents: write
@@ -28,6 +24,10 @@ jobs:
 
       - name: Install dependencies
         run: yarn
+
+      - name: Extend .npmrc Configuration
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
 
       - name: Run semantice release
         run: |

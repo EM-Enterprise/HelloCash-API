@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "ts-node tests",
     "build": "tsc --build tsconfig.json",
-    "prepublishOnly": "tsc --build tsconfig.json  & npm run docs",
+    "prepublishOnly": "tsc --build tsconfig.json",
     "docs": "typedoc --options typedoc.json"
   },
   "author": "",
@@ -39,6 +39,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/EM-Enterprise/HelloCash-API.git"
+    "url": "git+https://github.com/EM-Enterprise/HelloCash-API.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
   }
 }
