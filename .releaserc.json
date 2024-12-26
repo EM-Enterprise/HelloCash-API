@@ -52,5 +52,5 @@
       }
     ]
   ],
-  "branches": ["main", "master", "workflows"]
+  "branches": ["main", "master"]
 }
