@@ -66,13 +66,3 @@ jobs:
         run: |
           echo "Publishing package version ${NEW_VERSION}"
           npm publish
-
-      - name: Skip Publishing
-        if: env.VERSION_ALREADY_PUBLISHED == 'true'
-        run: |
-          echo "Package with version ${NEW_VERSION} will not be published as it is already published."
-
-#      - name: Publish Package
-#        run: npm publish
-#        env:
-#          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
