@@ -25,9 +25,6 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Verify login
-        run: npm whoami --registry=https://npm.pkg.github.com
-
       - name: Run semantice release
         run: |
           npm run semantic-release
