@@ -25,13 +25,12 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Extend .npmrc Configuration
-        run: |
-          echo "//npm.pkg.github.com/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+      - name: Verify login
+        run: npm whoami --registry=https://npm.pkg.github.com
 
       - name: Run semantice release
         run: |
-          npx semantic-release
+          npm run semantic-release
 
       - name: Print package.json version (before)
         run: |
