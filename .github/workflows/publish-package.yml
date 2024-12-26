@@ -12,9 +12,11 @@ permissions:
 jobs:
   publish-package:
     runs-on: ubuntu-latest
+    needs: [semantic-versioning]
+    
     env:
       REPO_NAME: ${{ github.repository }}
-
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     steps:
       - name: Checkout code
@@ -28,6 +30,44 @@ jobs:
 
       - name: Install Dependencies
         run: yarn
+
+      - name: Get latest release version
+        id: get_current_release_version
+        run: |  
+          echo "LATEST_RELEASE_VERSION=$(git ls-remote --tags --sort=committerdate | grep -o 'v.*' | sort -r | head -1)" >> $GITHUB_ENV
+          echo "CLEAN_NEW_VERSION=${LATEST_RELEASE_VERSION#v}" >> $GITHUB_ENV
+
+
+      - name: Check if Version is Already Published
+        if: env.VERSION_CHANGED == 'true'
+        id: check_published
+        run: |
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          PUBLISHED_VERSIONS=$(npm show "$PACKAGE_NAME" versions --json)
+          echo "Published versions: $PUBLISHED_VERSIONS"
+          if echo "$PUBLISHED_VERSIONS" | grep -q "\"${CLEAN_NEW_VERSION}\""; then
+            echo "VERSION_ALREADY_PUBLISHED=true" >> $GITHUB_ENV
+          else
+            echo "VERSION_ALREADY_PUBLISHED=false" >> $GITHUB_ENV
+          fi
+
+      - name: Set Package Version
+        if: env.VERSION_ALREADY_PUBLISHED == 'false'
+        id: set_version
+        run: |
+          npm version $NEW_VERSION --no-git-tag-version
+          echo "Increased package version to $NEW_VERSION"
+
+      - name: Publish Package
+        if: env.VERSION_ALREADY_PUBLISHED == 'false'
+        run: |
+          echo "Publishing package version ${{ env.NEW_VERSION }}"
+          npm publish
+
+      - name: Skip Publishing
+        if: env.VERSION_ALREADY_PUBLISHED == 'true'
+        run: |
+          echo "Package with version $CURRENT_VERSION will not be published as it is already published."
 
 #      - name: Publish Package
 #        run: npm publish
