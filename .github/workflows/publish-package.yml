@@ -35,7 +35,6 @@ jobs:
 
 
       - name: Check if Version is Already Published
-        if: env.VERSION_CHANGED == 'true'
         id: check_published
         run: |
           PACKAGE_NAME=$(node -p "require('./package.json').name")
