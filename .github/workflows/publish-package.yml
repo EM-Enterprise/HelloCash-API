@@ -24,6 +24,9 @@ jobs:
           node-version: '21'
           registry-url: 'https://npm.pkg.github.com'
 
+      - run: |
+          echo "//npm.pkg.github.com/:_authToken=${{secrets.NPM_TOKEN}}" > .npmrc
+
       - name: Install Dependencies
         run: yarn
 
@@ -31,7 +34,9 @@ jobs:
         id: get_current_release_version
         run: |  
           echo "LATEST_RELEASE_VERSION=$(git ls-remote --tags --sort=committerdate | grep -o 'v.*' | sort -r | head -1)" >> $GITHUB_ENV
-          echo "CLEAN_NEW_VERSION=${LATEST_RELEASE_VERSION#v}" >> $GITHUB_ENV
+
+      - run: |
+          echo "NEW_VERSION=${LATEST_RELEASE_VERSION#v}" >> $GITHUB_ENV
 
 
       - name: Check if Version is Already Published
@@ -40,7 +45,7 @@ jobs:
           PACKAGE_NAME=$(node -p "require('./package.json').name")
           PUBLISHED_VERSIONS=$(npm show "$PACKAGE_NAME" versions --json)
           echo "Published versions: $PUBLISHED_VERSIONS"
-          if echo "$PUBLISHED_VERSIONS" | grep -q "\"${CLEAN_NEW_VERSION}\""; then
+          if echo "$PUBLISHED_VERSIONS" | grep -q "\"${NEW_VERSION}\""; then
             echo "VERSION_ALREADY_PUBLISHED=true" >> $GITHUB_ENV
           else
             echo "VERSION_ALREADY_PUBLISHED=false" >> $GITHUB_ENV
@@ -50,19 +55,19 @@ jobs:
         if: env.VERSION_ALREADY_PUBLISHED == 'false'
         id: set_version
         run: |
-          npm version $NEW_VERSION --no-git-tag-version
-          echo "Increased package version to $NEW_VERSION"
+          npm version ${NEW_VERSION} --no-git-tag-version
+          echo "Increased package version to ${NEW_VERSION}"
 
       - name: Publish Package
         if: env.VERSION_ALREADY_PUBLISHED == 'false'
         run: |
-          echo "Publishing package version ${{ env.NEW_VERSION }}"
+          echo "Publishing package version ${NEW_VERSION}"
           npm publish
 
       - name: Skip Publishing
         if: env.VERSION_ALREADY_PUBLISHED == 'true'
         run: |
-          echo "Package with version $CURRENT_VERSION will not be published as it is already published."
+          echo "Package with version ${NEW_VERSION} will not be published as it is already published."
 
 #      - name: Publish Package
 #        run: npm publish
