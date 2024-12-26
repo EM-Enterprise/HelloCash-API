@@ -1,5 +1,5 @@
 {
-  "name": "hellocash-api",
+  "name": "@em-enterprise/hellocash-api",
   "version": "1.0.5",
   "description": "",
   "main": "dist/index",
