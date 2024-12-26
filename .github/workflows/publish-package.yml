@@ -43,8 +43,11 @@ jobs:
         id: check_published
         run: |
           PACKAGE_NAME=$(node -p "require('./package.json').name")
-          PUBLISHED_VERSIONS=$(npm show "$PACKAGE_NAME" versions --json)
+          
+          # Attempt to fetch published versions; handle failure if no versions are published
+          PUBLISHED_VERSIONS=$(npm show "$PACKAGE_NAME" versions --json 2>/dev/null || echo "[]")
           echo "Published versions: $PUBLISHED_VERSIONS"
+          
           if echo "$PUBLISHED_VERSIONS" | grep -q "\"${NEW_VERSION}\""; then
             echo "VERSION_ALREADY_PUBLISHED=true" >> $GITHUB_ENV
           else
