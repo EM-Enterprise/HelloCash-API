@@ -1,6 +1,6 @@
 import GET from '@/api/GET'
 import { Customer, RawCustomers } from '@/schemas/Customer'
-import parseRawCustomer from '@/functions/utils/parseRawCustomer'
+import parseRawCustomer from '@/functions/customers/parseRawCustomer'
 
 export default async function getCustomers(limit: number = -1) {
   let customers: Array<Customer> = []
