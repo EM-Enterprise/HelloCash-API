@@ -1,5 +1,5 @@
 import GET from '@/api/GET'
-import parseInvoice from '@/functions/invoices/parseInvoice'
+import parseRawInvoice from '@/functions/invoices/parseRawInvoice'
 import { Invoice, RawInvoices } from '@/schemas/Invoice'
 
 export default async function findInvoiceById(invoice_id: Invoice['id']): Promise<Invoice | null> {
@@ -14,5 +14,5 @@ export default async function findInvoiceById(invoice_id: Invoice['id']): Promis
   if (resp.invoices.length === 0) return null
 
   const _invoice: RawInvoices['invoices'][number] = resp.invoices.at(0)!
-  return parseInvoice(_invoice)
+  return parseRawInvoice(_invoice)
 }

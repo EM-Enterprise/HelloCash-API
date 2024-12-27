@@ -4,7 +4,7 @@ import { Customer } from '@/schemas/Customer'
 /**
  * @internal
  */
-export default function parseInvoice(invoice: RawInvoice): Invoice {
+export default function parseRawInvoice(invoice: RawInvoice): Invoice {
   const parseCustomer = ({ customer }: RawInvoice): Customer | undefined => {
     if (!customer) return undefined
 
