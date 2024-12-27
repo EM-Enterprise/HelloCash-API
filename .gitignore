@@ -20,7 +20,8 @@ tests.ts
 !tsconfig.json
 !.prettierrc.json
 !typedoc.json
-
+!.releaserc.json
+!.npmrc.json
 
 # Ignore Coverage files
 coverage
