@@ -11,6 +11,9 @@ function parseNull<V, O = V>(raw: V, callback?: (value: NonNullable<V>) => NonNu
   return (raw as unknown as O) ?? undefined
 }
 
+/**
+ * @internal
+ */
 export default function parseRawCustomer(raw: RawCustomer): Customer {
   const rawCustomer = RawCustomerSchema.parse(raw)
 
