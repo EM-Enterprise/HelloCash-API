@@ -1,6 +1,6 @@
-import { Invoice, RawInvoices } from '@/typings/Invoice'
 import GET from '@/api/GET'
 import parseInvoice from '@/functions/invoices/parseInvoice'
+import { Invoice, RawInvoices } from '@/schemas/Invoice'
 
 export default async function findInvoiceById(invoice_id: Invoice['id']): Promise<Invoice | null> {
   interface Response {

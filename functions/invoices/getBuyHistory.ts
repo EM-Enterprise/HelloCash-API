@@ -1,7 +1,7 @@
 import { Article } from '@/typings/Article'
 import { getInvoices } from '@/functions/invoices/getInvoices'
-import { Customer } from '@/typings/Customer'
-import { Invoice } from '@/typings/Invoice'
+import { Invoice, InvoiceItem } from '@/schemas/Invoice'
+import { Customer } from '@/schemas/Customer'
 
 /**
  * This function returns the buy-history for given array of article-ids.
@@ -12,7 +12,7 @@ import { Invoice } from '@/typings/Invoice'
  */
 export default async function getBuyHistory(ids: Array<Article['id']>) {
   const invoices = await getInvoices()
-  const relevantInvoices = invoices.filter((i) => i.items.find((i) => ids.includes(i.id)))
+  const relevantInvoices = invoices.filter((i) => i.items.find((i: InvoiceItem) => ids.includes(i.id)))
   const history = new Map<Customer | 'unknown', Array<Invoice>>()
 
   relevantInvoices.forEach((i) => {

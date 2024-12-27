@@ -1,17 +1,15 @@
-import { Invoice, Item, RawInvoices } from '@/typings/Invoice'
-import { Customer } from '@/typings/Customer'
+import { Invoice, InvoiceItem, RawInvoice } from '@/schemas/Invoice'
+import { Customer } from '@/schemas/Customer'
 
 /**
  * @internal
  */
-export default function parseInvoice(invoice: RawInvoices['invoices'][number]): Invoice {
-  const parseCustomer = ({ customer }: RawInvoices['invoices'][number]): Customer | undefined => {
+export default function parseInvoice(invoice: RawInvoice): Invoice {
+  const parseCustomer = ({ customer }: RawInvoice): Customer | undefined => {
     if (!customer) return undefined
 
     return {
       id: customer.customer_id,
-      timestamp: null,
-      salutation: null,
       firstName: customer.customer_firstName,
       lastName: customer.customer_surName,
       email: customer.customer_email,
@@ -22,22 +20,19 @@ export default function parseInvoice(invoice: RawInvoices['invoices'][number]): 
       street: customer.customer_street,
       houseNumber: customer.customer_houseNumber,
       uid_number: customer.customer_uid,
-      company: null,
-      notes: null,
-      birthday: null,
     }
   }
 
   return {
-    _id: invoice.invoice_id,
+    system_id: invoice.invoice_id,
     id: parseInt(invoice.invoice_number),
-    timestamp: new Date(Date.parse(invoice.invoice_timestamp)),
+    timestamp: invoice.invoice_timestamp,
     paymentType: invoice.invoice_payment,
     total: parseFloat(invoice.invoice_total),
     isCanceled: invoice.invoice_cancellation === 'cancelled',
     items:
       invoice.items?.map(
-        (i): Item => ({
+        (i): InvoiceItem => ({
           id: parseInt(i.item_article_id),
           name: i.item_name,
           quantity: parseFloat(i.item_quantity),
