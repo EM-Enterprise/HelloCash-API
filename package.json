@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "ts-node tests",
     "build": "tsc --build tsconfig.json",
+    "test": "jest --coverage",
     "prepublishOnly": "tsc --build tsconfig.json",
     "docs": "typedoc --options typedoc.json",
     "semantic-release": "semantic-release"

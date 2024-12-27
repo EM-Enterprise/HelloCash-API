@@ -6,6 +6,7 @@
 /docs
 
 # Currently only used for testing and exploration purposes.
+/web
 /modules
 /custom-api
 
@@ -22,6 +23,8 @@ tests.ts
 !.releaserc.json
 !.npmrc.json
 
+# Ignore Coverage files
+coverage
 
 
 # Ignore sensitive content

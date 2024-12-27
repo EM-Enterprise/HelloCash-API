@@ -1,7 +1,10 @@
 import GET from '@/api/GET'
 import { Article, RawArticles } from '@/typings/Article'
 
-export default async function getArticles(limit: number = -1) {
+export default async function getArticles(limit: number = 1000) {
+  if (limit === 0) return []
+  if (limit < 0) limit = 1000
+
   const { articles } = await GET<RawArticles>('articles', [`limit=${limit}`])
 
   return articles.map(
