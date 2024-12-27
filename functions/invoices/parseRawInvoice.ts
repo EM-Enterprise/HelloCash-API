@@ -1,28 +1,28 @@
 import { Invoice, InvoiceItem, RawInvoice } from '@/schemas/Invoice'
 import { Customer } from '@/schemas/Customer'
 
+function parseCustomer(rawInvoiceCustomer: RawInvoice['customer']): Customer | undefined {
+  if (!rawInvoiceCustomer) return undefined
+
+  return {
+    id: rawInvoiceCustomer.customer_id,
+    firstName: rawInvoiceCustomer.customer_firstName,
+    lastName: rawInvoiceCustomer.customer_surName,
+    email: rawInvoiceCustomer.customer_email,
+    phone: rawInvoiceCustomer.customer_phoneNumber,
+    country: rawInvoiceCustomer.customer_country,
+    postCode: rawInvoiceCustomer.customer_postalCode,
+    city: rawInvoiceCustomer.customer_city,
+    street: rawInvoiceCustomer.customer_street,
+    houseNumber: rawInvoiceCustomer.customer_houseNumber,
+    uid_number: rawInvoiceCustomer.customer_uid,
+  }
+}
+
 /**
  * @internal
  */
 export default function parseRawInvoice(invoice: RawInvoice): Invoice {
-  const parseCustomer = ({ customer }: RawInvoice): Customer | undefined => {
-    if (!customer) return undefined
-
-    return {
-      id: customer.customer_id,
-      firstName: customer.customer_firstName,
-      lastName: customer.customer_surName,
-      email: customer.customer_email,
-      phone: customer.customer_phoneNumber,
-      country: customer.customer_country,
-      postCode: customer.customer_postalCode,
-      city: customer.customer_city,
-      street: customer.customer_street,
-      houseNumber: customer.customer_houseNumber,
-      uid_number: customer.customer_uid,
-    }
-  }
-
   return {
     system_id: invoice.invoice_id,
     id: parseInt(invoice.invoice_number),
@@ -41,6 +41,6 @@ export default function parseRawInvoice(invoice: RawInvoice): Invoice {
           discount: parseFloat(i.item_discount_value),
         }),
       ) ?? [],
-    customer: parseCustomer(invoice),
+    customer: parseCustomer(invoice.customer),
   }
 }
