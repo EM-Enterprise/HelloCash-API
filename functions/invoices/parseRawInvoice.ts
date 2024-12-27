@@ -1,4 +1,4 @@
-import { Invoice, InvoiceItem, RawInvoice } from '@/schemas/Invoice'
+import { Invoice, InvoiceItem, RawInvoice, RawInvoiceSchema } from '@/schemas/Invoice'
 import { Customer } from '@/schemas/Customer'
 
 function parseCustomer(rawInvoiceCustomer: RawInvoice['customer']): Customer | undefined {
@@ -19,28 +19,35 @@ function parseCustomer(rawInvoiceCustomer: RawInvoice['customer']): Customer | u
   }
 }
 
+function parseNumber(value: string | undefined): number {
+  if (!value) return -1
+
+  return parseFloat(value)
+}
+
 /**
  * @internal
  */
-export default function parseRawInvoice(invoice: RawInvoice): Invoice {
+export default function parseRawInvoice(raw: RawInvoice): Invoice {
+  const rawInvoice = RawInvoiceSchema.parse(raw)
+
   return {
-    system_id: invoice.invoice_id,
-    id: parseInt(invoice.invoice_number),
-    timestamp: invoice.invoice_timestamp,
-    paymentType: invoice.invoice_payment,
-    total: parseFloat(invoice.invoice_total),
-    isCanceled: invoice.invoice_cancellation === 'cancelled',
-    items:
-      invoice.items?.map(
-        (i): InvoiceItem => ({
-          id: parseInt(i.item_article_id),
-          name: i.item_name,
-          quantity: parseFloat(i.item_quantity),
-          price: parseFloat(i.item_price),
-          taxRate: parseFloat(i.item_taxRate),
-          discount: parseFloat(i.item_discount_value),
-        }),
-      ) ?? [],
-    customer: parseCustomer(invoice.customer),
+    system_id: rawInvoice.invoice_id,
+    id: parseInt(rawInvoice.invoice_number),
+    timestamp: rawInvoice.invoice_timestamp,
+    paymentType: rawInvoice.invoice_payment,
+    total: parseFloat(rawInvoice.invoice_total),
+    isCanceled: rawInvoice.invoice_cancellation === 'cancelled',
+    items: rawInvoice.items.map(
+      (i): InvoiceItem => ({
+        id: parseInt(i.item_article_id),
+        name: i.item_name,
+        quantity: parseNumber(i.item_quantity),
+        price: parseNumber(i.item_price),
+        taxRate: parseNumber(i.item_taxRate),
+        discount: parseNumber(i.item_discount_value),
+      }),
+    ),
+    customer: parseCustomer(rawInvoice.customer),
   }
 }
