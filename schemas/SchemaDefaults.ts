@@ -22,6 +22,7 @@ export default function schemaDefaults<Schema extends z.ZodFirstPartySchemaTypes
       return undefined
     case z.ZodFirstPartyTypeKind.ZodUnknown:
       return undefined
+
     // etc
     case z.ZodFirstPartyTypeKind.ZodArray: {
       const arraySchema = schema as z.ZodArray<any>
@@ -42,6 +43,9 @@ export default function schemaDefaults<Schema extends z.ZodFirstPartySchemaTypes
 
     case z.ZodFirstPartyTypeKind.ZodAny:
       return undefined
+
+    case z.ZodFirstPartyTypeKind.ZodCatch:
+      return schema._def.catchValue.call(null, {} as any)
 
     default:
       throw new Error(`Unsupported type ${schema._type}, ${(schema as any)._def.typeName}`)
