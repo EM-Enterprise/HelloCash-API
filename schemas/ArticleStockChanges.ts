@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const ArticleStockChangeSchema = z.object({
+export const ArticleStockChangeSchema = z.object({
   id: z.number(),
   article_id: z.number(),
   timestamp: z.string(),
@@ -10,7 +10,7 @@ const ArticleStockChangeSchema = z.object({
   delivery_number: z.string(),
 })
 
-const RawArticleStockChangeSchema = z.object({
+export const RawArticleStockChangeSchema = z.object({
   stock_id: z.string(),
   stock_article_id: z.string(),
   stock_timestamp: z.string(),

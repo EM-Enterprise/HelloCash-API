@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const ArticleSchema = z.object({
+export const ArticleSchema = z.object({
   id: z.number().optional(),
   name: z.string().default('Article-XY'),
   code: z.string().optional(),
@@ -16,7 +16,7 @@ const ArticleSchema = z.object({
   category_id: z.number().optional(),
 })
 
-const RawArticleSchema = z.object({
+export const RawArticleSchema = z.object({
   article_id: z.string().optional(),
   article_category_id: z.number().optional(),
   article_name: z.string().default('Article-XY'),
@@ -35,7 +35,7 @@ const RawArticleSchema = z.object({
   article_stockStatus: z.number().optional().catch(0),
 })
 
-const RawArticlesSchema = z.object({
+export const RawArticlesSchema = z.object({
   articles: z.array(RawArticleSchema),
 })
 
