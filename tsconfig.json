@@ -2,6 +2,9 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node", "jest"],
+    "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
