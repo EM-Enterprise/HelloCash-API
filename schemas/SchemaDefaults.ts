@@ -28,7 +28,7 @@ export default function schemaDefaults<Schema extends z.ZodFirstPartySchemaTypes
       const arraySchema = schema as z.ZodArray<any>
       const elementSchema = arraySchema.element
       // Return an array of 1 - 10 elements in the array
-      const elements = Array.from({ length: Math.random() * 10 + 1 }).map(() => schemaDefaults(elementSchema)) as z.TypeOf<Schema>
+      const elements = Array.from({ length: 5 }).map(() => schemaDefaults(elementSchema)) as z.TypeOf<Schema>
       return elements
     }
 
