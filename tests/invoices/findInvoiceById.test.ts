@@ -22,3 +22,14 @@ test('findInvoiceById - check for finding correct invoice', async () => {
   expect(fondInvoice).toEqual(invoices[0])
   expect(mockedGet.default).toHaveBeenCalledTimes(1)
 })
+
+test('findInvoiceById - check finding non-existent invoice', async () => {
+  jest.spyOn(mockedGet, 'default').mockImplementation(() => {
+    return Promise.resolve({
+      invoices: [],
+    })
+  })
+
+  const invoice = await findInvoiceById(1234567890)
+  expect(invoice).toBeNull()
+})
