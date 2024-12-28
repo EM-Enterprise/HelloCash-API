@@ -1,9 +1,9 @@
-import { Article } from "./Article"
-import { Invoice } from "./Invoice"
+import { Article } from '@/schemas/Article'
+import { Invoice } from '@/schemas/Invoice'
 
-export  interface StockChange {
+export interface StockChange {
   id: number
-  article_id: Article['id']
+  article_id: NonNullable<Article['id']>
   timestamp: Date
   change: number
   invoice_id: Invoice['id']
