@@ -1,8 +1,8 @@
 import GET from '@/api/GET'
-import { ArticleCategory, RawArticleCategory } from '@/typings/Category'
+import { ArticleCategory, RawArticleCategories } from '@/schemas/ArticleCategory'
 
 export default async function getCategories() {
-  const { categories } = await GET<RawArticleCategory>('articles/categories')
+  const { categories } = await GET<RawArticleCategories>('articles/categories')
 
   return categories.map(
     (cat): ArticleCategory => ({
