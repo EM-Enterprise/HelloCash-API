@@ -19,8 +19,9 @@
       "@/config/*": ["./config/*"],
       "@/api/*": ["./api/*"],
       "@/typings/*": ["./typings/*"],
-      "@/functions/*": ["./functions/*"]
+      "@/functions/*": ["./functions/*"],
+      "@/schemas/*": ["./schemas/*"]
     }
   },
-  "exclude": ["node_modules", "dist", "docs", "tests.ts", "custom-api", "**/*.test.*", "**/__mocks__/*", "**/__tests__/*", "**/web/**"]
+  "exclude": ["node_modules", "dist", "docs", "tests.ts", "custom-api"]
 }
