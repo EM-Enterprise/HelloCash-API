@@ -10,6 +10,8 @@ const config: Config.InitialOptions = {
   setupFilesAfterEnv: ['./jest.mocks.ts'],
   // Other Jest configurations...
 
+  randomize: true,
+
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/',
   }),
