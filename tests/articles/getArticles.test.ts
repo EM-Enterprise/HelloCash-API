@@ -3,13 +3,21 @@ import { beforeEach } from '@jest/globals'
 import * as dotenv from 'dotenv'
 import { getAuthorization, setAuthorization } from '@/config/authorization'
 import schemaDefaults from '@/schemas/SchemaDefaults'
-import { ArticleSchema } from '@/schemas/Article'
+import { RawArticles, RawArticleSchema, RawArticlesSchema } from '@/schemas/Article'
 
 dotenv.config()
 
-const mockedGetArticles = jest.requireActual('@/functions/articles/getArticles')
-jest.spyOn(mockedGetArticles, 'default').mockImplementation((...args) => {
-  const limit = args[0] as number
+const mockGet = jest.requireActual('@/api/GET')
+jest.spyOn(mockGet, 'default').mockImplementation((...args) => {
+  const filters = args[1] as string[]
+  let limitFilter = filters
+    .find((filter) => filter.includes('limit='))
+    ?.split('=')
+    .at(1)
+
+  if (!limitFilter) return new Promise((resolve, rejects) => rejects('Could not find limit filter in GET filter params.'))
+
+  let limit = parseInt(limitFilter)
 
   return new Promise((resolve, rejects) => {
     try {
@@ -17,7 +25,11 @@ jest.spyOn(mockedGetArticles, 'default').mockImplementation((...args) => {
     } catch (err) {
       rejects(err)
     }
-    resolve(Array.from({ length: limit === -1 ? 1000 : limit }).map(() => schemaDefaults(ArticleSchema)))
+
+    const response: RawArticles = schemaDefaults(RawArticlesSchema)
+    response.articles = Array.from({ length: limit === -1 ? 1000 : limit }).map(() => schemaDefaults(RawArticleSchema))
+
+    resolve(response)
   })
 })
 
