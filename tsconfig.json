@@ -2,6 +2,9 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node", "jest"],
+    "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
@@ -12,18 +15,13 @@
     "stripInternal": true,
     "noImplicitAny": true,
     "paths": {
-        "@/*": ["./*"],
-        "@/config/*": ["./config/*"],
-        "@/api/*": ["./api/*"],
-        "@/typings/*": ["./typings/*"],
-        "@/functions/*": ["./functions/*"]
+      "@/*": ["./*"],
+      "@/config/*": ["./config/*"],
+      "@/api/*": ["./api/*"],
+      "@/typings/*": ["./typings/*"],
+      "@/functions/*": ["./functions/*"],
+      "@/schemas/*": ["./schemas/*"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "docs",
-    "tests.ts",
-    "custom-api"
-  ]
+  "exclude": ["node_modules", "dist", "docs", "tests.ts", "custom-api"]
 }

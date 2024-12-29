@@ -52,5 +52,5 @@
       }
     ]
   ],
-  "branches": ["main", "master"]
+  "branches": ["main", "master", { "name": "staging", "prerelease": true }]
 }
