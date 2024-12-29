@@ -25,3 +25,17 @@ jest.mock('@/functions/invoices/getInvoices', () => ({
     })
   }),
 }))
+
+// jest.mock('@/functions/articles/getArticles', () => ({
+//   default: jest.fn((limit: number) => {
+//     return new Promise((resolve, rejects) => {
+//       try {
+//         getAuthorization()
+//       } catch (err) {
+//         rejects(err)
+//       }
+//
+//       resolve(Array.from({ length: limit === -1 ? 10 : limit }).map(() => schemaDefaults(ArticleSchema)))
+//     })
+//   }),
+// }))
