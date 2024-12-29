@@ -1,5 +1,9 @@
 import GET from '@/api/GET'
-import { Article, RawArticles } from '@/typings/Article'
+import { Article, RawArticles } from '@/schemas/Article'
+
+function parseNumber(raw: string | undefined): number | undefined {
+  return raw ? parseFloat(raw) : undefined
+}
 
 export default async function getArticles(limit: number = 1000) {
   if (limit === 0) return []
@@ -9,16 +13,16 @@ export default async function getArticles(limit: number = 1000) {
 
   return articles.map(
     (a): Article => ({
-      id: parseInt(a.article_id),
+      id: parseNumber(a.article_id),
       name: a.article_name,
-      price: parseFloat(a.article_gross_sellingPrice),
+      price: parseNumber(a.article_gross_sellingPrice),
       netPrices: {
-        purchasePrice: parseFloat(a.article_net_purchacePrice),
-        sellingPrice: parseFloat(a.article_net_sellingPrice),
+        purchasePrice: parseNumber(a.article_net_purchacePrice),
+        sellingPrice: parseNumber(a.article_net_sellingPrice),
       },
-      stock: parseFloat(a.article_stock),
+      stock: parseNumber(a.article_stock),
       code: a.article_code,
-      taxClass: parseFloat(a.article_taxRate),
+      taxClass: parseNumber(a.article_taxRate),
       comments: a.article_comment?.split('\r\n') ?? [],
       category_id: a.article_category_id,
     }),

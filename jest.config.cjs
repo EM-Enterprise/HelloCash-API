@@ -5,6 +5,8 @@ const { compilerOptions } = require('./tsconfig.json');
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
+  workerThreads: true,
+  testTimeout: 10000,
   // Other Jest configurations...
 
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
