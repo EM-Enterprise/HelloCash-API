@@ -10,6 +10,7 @@ const config: Config.InitialOptions = {
   setupFilesAfterEnv: ['./jest.mocks.ts'],
   // Other Jest configurations...
 
+  testPathIgnorePatterns: ['dist'],
   randomize: true,
 
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
