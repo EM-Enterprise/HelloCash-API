@@ -1,17 +1,17 @@
 import { z } from 'zod'
 
-const ArticleCategorySchema = z.object({
+export const ArticleCategorySchema = z.object({
   id: z.number(),
   name: z.string(),
 })
 
-const RawArticleCategorySchema = z.object({
+export const RawArticleCategorySchema = z.object({
   article_category_id: z.number(),
   article_parent_category_id: z.number(),
   article_category_name: z.string(),
 })
 
-const RawArticleCategoriesSchema = z.object({
+export const RawArticleCategoriesSchema = z.object({
   categories: z.array(RawArticleCategorySchema),
   count: z.number(),
 })

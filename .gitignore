@@ -18,6 +18,7 @@ tests.ts
 !package.json
 !package-lock.json
 !tsconfig.json
+!tsconfig.build.json
 !.prettierrc.json
 !typedoc.json
 !.releaserc.json

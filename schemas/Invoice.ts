@@ -1,41 +1,42 @@
 import { z } from 'zod'
 import { CustomerSchema } from '@/schemas/Customer'
+import { getRandomNumber, getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
 
 const InvoiceItemSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  quantity: z.number(),
-  price: z.number(),
-  taxRate: z.number(),
-  discount: z.number(),
+  id: z.number().default(getRandomNumber()),
+  name: z.string().default('Item-' + getRandomNumberAsString()),
+  quantity: z.number().default(0),
+  price: z.number().default(0),
+  taxRate: z.number().default(0),
+  discount: z.number().default(0),
 })
 
 export const InvoiceSchema = z.object({
-  system_id: z.unknown(),
-  id: z.number(),
-  timestamp: z.string(),
-  paymentType: z.string(),
-  total: z.number(),
-  isCanceled: z.boolean(),
+  system_id: z.unknown().default(getRandomNumberAsString()),
+  id: z.number().default(getRandomNumber()),
+  timestamp: z.string().default(new Date(Date.parse('2024/12/27')).toISOString()),
+  paymentType: z.string().default('PayPal'),
+  total: z.number().default(getRandomNumber()),
+  isCanceled: z.boolean().default(false),
   customer: CustomerSchema.optional(),
   items: z.array(InvoiceItemSchema),
 })
 
 export const RawInvoiceSchema = z.object({
-  invoice_id: z.string(),
-  invoice_timestamp: z.string(),
-  invoice_number: z.string(),
-  invoice_cashier: z.string(),
-  invoice_cashier_id: z.string(),
-  invoice_mode: z.string(),
-  invoice_payment: z.string(),
-  invoice_total: z.string(),
+  invoice_id: z.string().default(getRandomNumberAsString()),
+  invoice_timestamp: z.string().default(new Date(Date.parse('2024/12/27')).toISOString()),
+  invoice_number: z.string().default(getRandomNumberAsString()),
+  invoice_cashier: z.string().default('John Doe'),
+  invoice_cashier_id: z.string().default(getRandomNumberAsString()),
+  invoice_mode: z.string().default('default'),
+  invoice_payment: z.string().default('PayPal'),
+  invoice_total: z.string().default(getRandomNumberAsString()),
   invoice_discount: z.string().optional(),
-  invoice_totalNet: z.string(),
-  invoice_totalTax: z.string(),
+  invoice_totalNet: z.string().default(getRandomNumberAsString()),
+  invoice_totalTax: z.string().default(getRandomNumberAsString()),
   invoice_text: z.string().optional(),
-  invoice_currency: z.string(),
-  invoice_cancellation: z.string(),
+  invoice_currency: z.string().default('EUR'),
+  invoice_cancellation: z.string().default('not cancelled'),
   company: z.object({
     name: z.string(),
     street: z.string(),
@@ -52,17 +53,17 @@ export const RawInvoiceSchema = z.object({
 
   items: z.array(
     z.object({
-      item_id: z.string(),
-      item_quantity: z.string().optional(),
-      item_name: z.string(),
-      item_price: z.string().optional(),
-      item_total: z.string(),
-      item_taxRate: z.string().optional(),
-      item_discount: z.string(),
+      item_id: z.string().default(getRandomNumberAsString()),
+      item_quantity: z.string().optional().catch('0'),
+      item_name: z.string().default(`Item-${getRandomNumberAsString()}`),
+      item_price: z.string().optional().catch('0'),
+      item_total: z.string().default(getRandomNumberAsString()),
+      item_taxRate: z.string().optional().catch('0'),
+      item_discount: z.string().default('0'),
       item_discount_unit: z.string().optional(),
-      item_discount_value: z.string(),
-      item_service_id: z.string(),
-      item_article_id: z.string(),
+      item_discount_value: z.string().default('0'),
+      item_service_id: z.string().default(getRandomNumberAsString()),
+      item_article_id: z.string().default(getRandomNumberAsString()),
     }),
   ),
 
@@ -85,10 +86,10 @@ export const RawInvoiceSchema = z.object({
 
   taxes: z.array(
     z.object({
-      tax_taxRate: z.string(),
-      tax_gross: z.string(),
-      tax_net: z.string(),
-      tax_tax: z.string(),
+      tax_taxRate: z.string().default('13'),
+      tax_gross: z.string().default('20'),
+      tax_net: z.string().default('14'),
+      tax_tax: z.string().default('6'),
     }),
   ),
 })
