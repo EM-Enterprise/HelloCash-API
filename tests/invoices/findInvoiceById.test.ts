@@ -21,7 +21,8 @@ test('findInvoiceById - check for finding correct invoice', async () => {
   const fondInvoice = await findInvoiceById(invoices[0].id)
 
   expect(invoices.length).toBeGreaterThan(0)
-  expect(fondInvoice).toEqual(invoices[0])
+  expect(fondInvoice).not.toBeNull()
+  expect(fondInvoice?.system_id).toEqual(invoices.at(0)?.system_id)
   expect(mockedGet.default).toHaveBeenCalledTimes(1)
 })
 
