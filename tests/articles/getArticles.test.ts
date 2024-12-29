@@ -1,9 +1,25 @@
 import getArticles from '../../functions/articles/getArticles'
 import { beforeEach } from '@jest/globals'
 import * as dotenv from 'dotenv'
-import { setAuthorization } from '@/config/authorization'
+import { getAuthorization, setAuthorization } from '@/config/authorization'
+import schemaDefaults from '@/schemas/SchemaDefaults'
+import { ArticleSchema } from '@/schemas/Article'
 
 dotenv.config()
+
+const mockedGetArticles = jest.requireActual('@/functions/articles/getArticles')
+jest.spyOn(mockedGetArticles, 'default').mockImplementation((...args) => {
+  const limit = args[0] as number
+
+  return new Promise((resolve, rejects) => {
+    try {
+      getAuthorization()
+    } catch (err) {
+      rejects(err)
+    }
+    resolve(Array.from({ length: limit === -1 ? 1000 : limit }).map(() => schemaDefaults(ArticleSchema)))
+  })
+})
 
 beforeEach(() => {
   setAuthorization(process.env.AUTH_TOKEN!)
