@@ -7,7 +7,7 @@ const config: Config.InitialOptions = {
   testEnvironment: 'node',
   workerThreads: true,
   testTimeout: 10000,
-  setupFilesAfterEnv: ['./jest.mocks.ts'],
+  setupFilesAfterEnv: ['./jest.setup.ts', './jest.mocks.ts'],
   // Other Jest configurations...
 
   testPathIgnorePatterns: ['dist'],
