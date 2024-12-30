@@ -20,3 +20,9 @@ jobs:
 
       - name: Run Jest Tests
         run: npm run test
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: EM-Enterprise/HelloCash-API
