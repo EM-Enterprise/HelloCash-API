@@ -32,18 +32,20 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
-      - name: Get latest release version
-        id: get_current_release_version
-        run: |  
-          echo "LATEST_RELEASE_VERSION=$(git ls-remote --tags --sort=committerdate | grep -o 'v.*' | sort -r | head -1)" >> $GITHUB_ENV
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        with:
+          fallback: v1.0.0 # Optional fallback tag to use when no tag can be found
 
       - run: |
-          echo "NEW_VERSION=${LATEST_RELEASE_VERSION#v}" >> $GITHUB_ENV
+          echo "NEW_VERSION=${{ steps.previoustag.outputs.tag }}" >> $GITHUB_ENV
 
 
       - name: Check if Version is Already Published
         id: check_published
         run: |
+          echo "Checking if version ${NEW_VERSION} is already published"
           PACKAGE_NAME=$(node -p "require('./package.json').name")
           
           # Attempt to fetch published versions; handle failure if no versions are published
