@@ -1,10 +1,25 @@
-import { z } from 'zod'
+import { z, ZodTypeAny } from 'zod'
+
+/**
+ * @internal
+ */
+export interface SchemaOptionalProps {
+  includePrimitiveProperties?: boolean
+  includeNonPrimitiveProperties?: boolean
+}
 
 /**
  * Returns a default values for a given schema.
  * @param schema The schema to generate default values for.
+ * @param includePrimitiveProperties If true, optinal primitive properties such as strings, numbers, and booleans are going to be instantiated.
+ * @param includeNonPrimitiveProperties If true, non-primitive properties such as objects and arrays are going to instantiated as well.
+ * @internal
  */
-export default function schemaDefaults<Schema extends z.ZodFirstPartySchemaTypes>(schema: Schema): z.TypeOf<Schema> {
+export default function schemaDefaults<Schema extends z.ZodFirstPartySchemaTypes>(
+  schema: Schema,
+  includePrimitiveProperties: SchemaOptionalProps['includePrimitiveProperties'] = true,
+  includeNonPrimitiveProperties: SchemaOptionalProps['includeNonPrimitiveProperties'] = false,
+): z.TypeOf<Schema> {
   switch (schema._def.typeName) {
     case z.ZodFirstPartyTypeKind.ZodDefault:
       return schema._def.defaultValue()
@@ -33,7 +48,12 @@ export default function schemaDefaults<Schema extends z.ZodFirstPartySchemaTypes
     }
 
     case z.ZodFirstPartyTypeKind.ZodOptional:
-      return undefined
+      const strippedOptionalSchema = (schema as z.ZodOptional<ZodTypeAny>).unwrap()
+
+      if (strippedOptionalSchema._def.typeName === z.ZodFirstPartyTypeKind.ZodArray && !includeNonPrimitiveProperties) return undefined
+      else if (strippedOptionalSchema._def.typeName === z.ZodFirstPartyTypeKind.ZodObject && !includeNonPrimitiveProperties) return undefined
+
+      return includePrimitiveProperties ? schemaDefaults(strippedOptionalSchema) : undefined
 
     case z.ZodFirstPartyTypeKind.ZodNumber:
       return 0
