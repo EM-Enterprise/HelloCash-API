@@ -52,5 +52,5 @@
       }
     ]
   ],
-  "branches": ["main", "master", { "name": "staging", "prerelease": true }]
+  "branches": ["main", "master", { "name": "canary", "prerelease": true }]
 }
