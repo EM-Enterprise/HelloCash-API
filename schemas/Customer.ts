@@ -1,45 +1,52 @@
 import { z } from 'zod'
+import { getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
 
 export const CustomerSchema = z.object({
-  id: z.string(),
-  timestamp: z.string().optional(),
-  salutation: z.string().optional(),
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  postCode: z.string().optional(),
-  city: z.string().optional(),
-  street: z.string().optional(),
-  houseNumber: z.string().optional(),
-  country: z.string().optional(),
+  id: z.string().default(getRandomNumberAsString()),
+  timestamp: z
+    .string()
+    .default(new Date(Date.parse('2024/12/27')).toISOString())
+    .optional(),
+  salutation: z.string().default('Herr').optional(),
+  firstName: z.string().default('John').optional(),
+  lastName: z.string().default('Doe').optional(),
+  email: z.string().default('john.doe@email.com').optional(),
+  phone: z.string().default(getRandomNumberAsString()).optional(),
+  postCode: z.string().default(getRandomNumberAsString()).optional(),
+  city: z.string().default('City').optional(),
+  street: z.string().default('Musterstraße').optional(),
+  houseNumber: z.string().default('3').optional(),
+  country: z.string().default('Austria').optional(),
 
-  company: z.string().optional(),
-  uid_number: z.string().optional(),
+  company: z.string().default('Company').optional(),
+  uid_number: z.string().default('123456789').optional(),
 
-  birthday: z.string().optional(),
-  notes: z.array(z.string()).optional(),
+  birthday: z.string().default('2024-12-27').optional(),
+  notes: z.array(z.string()).default(['Notes']).optional(),
 })
 
 export const RawCustomerSchema = z.object({
-  user_id: z.string(),
-  user_timestamp: z.string().nullable(),
-  user_salutation: z.string().nullable(),
-  user_firstname: z.string().nullable(),
-  user_surname: z.string().nullable(),
-  user_email: z.string().nullable(),
-  user_phoneNumber: z.string().nullable(),
+  user_id: z.string().default(getRandomNumberAsString()),
+  user_timestamp: z
+    .string()
+    .nullable()
+    .default(new Date(Date.parse('2024/12/27')).toISOString()),
+  user_salutation: z.string().nullable().default('Herr'),
+  user_firstname: z.string().nullable().default('John'),
+  user_surname: z.string().nullable().default('Doe'),
+  user_email: z.string().nullable().default('john.doe@email.com'),
+  user_phoneNumber: z.string().nullable().default(getRandomNumberAsString()),
 
-  user_postalCode: z.string().nullable(),
-  user_city: z.string().nullable(),
-  user_street: z.string().nullable(),
-  user_houseNumber: z.string().nullable(),
-  user_country: z.string().nullable(),
+  user_postalCode: z.string().nullable().default(getRandomNumberAsString()),
+  user_city: z.string().nullable().default('City'),
+  user_street: z.string().nullable().default('Musterstraße'),
+  user_houseNumber: z.string().nullable().default('3'),
+  user_country: z.string().nullable().default('Austria'),
 
-  user_uidNumber: z.string().nullable(),
-  user_company: z.string().nullable(),
-  user_birthday: z.string().nullable(),
-  user_notes: z.string().nullable(),
+  user_uidNumber: z.string().nullable().default('123456789'),
+  user_company: z.string().nullable().default('Company'),
+  user_birthday: z.string().nullable().default('2024-12-27'),
+  user_notes: z.string().nullable().default('Notes'),
 
   user_custom_fields: z.any(),
 })
