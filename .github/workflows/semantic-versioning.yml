@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - staging
+      - canary
   workflow_dispatch:
 
 permissions:
