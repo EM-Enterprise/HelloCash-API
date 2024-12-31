@@ -1,0 +1,44 @@
+name: "Publish Documentation"
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  pages: write
+  id-token: write
+
+jobs:
+  publish-documentation:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: "github-pages-documentation"
+      url: ${{ steps.deployment.outputs.page_url}}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node 21
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21'
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Generate Documentation
+        run: |
+          npm run docs
+
+      - name: Upload Documentation to GitHub Pages
+        id: "upload-documentation"
+        uses: "actions/upload-pages-artifact@v2"
+        with:
+          path: "docs/"
+
+      - name: Deploy Documentation to GitHub Pages
+        id: "deployment"
+        uses: "actions/deploy-pages@v2"
