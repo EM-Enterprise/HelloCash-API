@@ -1,7 +1,8 @@
 {
-    "name": "HelloCash-API",
-    "entryPoints": ["./"],
-    "entryPointStrategy": "expand",
-    "exclude": ["node_modules/**/*", "dist/**/*", "docs/**/*", "api/**", "tests.ts"],
-    "readme": "./Readme.md"
+  "name": "HelloCash-API",
+  "entryPoints": ["./"],
+  "entryPointStrategy": "expand",
+  "exclude": ["node_modules/**/*", "dist/**/*", "docs/**/*", "api/**", "tests.ts", "tests/**", "web/**", "config/**", "jest.*", "functions/utils/randomDefaultValues.ts"],
+  "readme": "Readme.md",
+  "plugin": ["typedoc-plugin-zod", "typedoc-plugin-include-example", "typedoc-plugin-rename-defaults"]
 }
