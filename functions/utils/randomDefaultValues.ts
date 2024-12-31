@@ -1,5 +1,4 @@
-const randomNumber = Math.random() * 100
-const randomNumberAsString = (Math.random() * 100).toFixed(0)
+const randomNumber = ((Math.random() * 100) % 89) + 10
 
 /**
  * @internal
