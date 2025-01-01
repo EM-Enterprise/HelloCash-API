@@ -1,8 +1,12 @@
 import { z } from 'zod'
 import { CustomerSchema } from '@/schemas/Customer'
 import { getRandomNumber, getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
+import { stripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 
-const InvoiceItemSchema = z.object({
+/**
+ * @internal
+ */
+export const InvoiceItemSchema_DefaultValues = z.object({
   id: z.number().default(getRandomNumber()),
   name: z.string().default('Item-' + getRandomNumberAsString()),
   quantity: z.number().default(0),
@@ -10,8 +14,12 @@ const InvoiceItemSchema = z.object({
   taxRate: z.number().default(0),
   discount: z.number().default(0),
 })
+export const InvoiceItemSchema = stripZodDefault(InvoiceItemSchema_DefaultValues)
 
-export const InvoiceSchema = z.object({
+/**
+ * @internal
+ */
+export const InvoiceSchema_DefaultValues = z.object({
   system_id: z.unknown().default(getRandomNumberAsString()),
   id: z.number().default(getRandomNumber()),
   timestamp: z.string().default(new Date(Date.parse('2024/12/27')).toISOString()),
@@ -21,8 +29,12 @@ export const InvoiceSchema = z.object({
   customer: CustomerSchema.optional(),
   items: z.array(InvoiceItemSchema),
 })
+export const InvoiceSchema = stripZodDefault(InvoiceSchema_DefaultValues)
 
-export const RawInvoiceSchema = z.object({
+/**
+ * @internal
+ */
+export const RawInvoiceSchema_DefaultValues = z.object({
   invoice_id: z.string().default(getRandomNumberAsString()),
   invoice_timestamp: z.string().default(new Date(Date.parse('2024/12/27')).toISOString()),
   invoice_number: z.string().default(getRandomNumberAsString()),
@@ -93,9 +105,14 @@ export const RawInvoiceSchema = z.object({
     }),
   ),
 })
+export const RawInvoiceSchema = stripZodDefault(RawInvoiceSchema_DefaultValues)
 
 export const RawInvoicesSchema = z.object({
   invoices: z.array(RawInvoiceSchema),
+})
+
+export const RawInvoicesSchema_DefaultValues = z.object({
+  invoices: z.array(RawInvoiceSchema_DefaultValues),
 })
 
 export type Invoice = z.infer<typeof InvoiceSchema>
