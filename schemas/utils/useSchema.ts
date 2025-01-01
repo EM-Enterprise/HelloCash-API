@@ -1,6 +1,6 @@
 import { z } from 'zod'
-import schemaDefaults, { SchemaOptionalProps } from '@/schemas/SchemaDefaults'
 import { stripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
+import schemaDefaults, { SchemaOptionalProps } from '@/schemas/utils/schemaDefaults'
 
 /**
  * A hook that provides utility functions for working with zod schemas
