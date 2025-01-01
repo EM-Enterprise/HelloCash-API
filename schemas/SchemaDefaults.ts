@@ -25,7 +25,7 @@ export default function schemaDefaults<Schema extends z.ZodFirstPartySchemaTypes
       return schema._def.defaultValue()
 
     case z.ZodFirstPartyTypeKind.ZodObject: {
-      return Object.fromEntries(Object.entries((schema as z.SomeZodObject).shape).map(([key, value]) => [key, schemaDefaults(value)]))
+      return Object.fromEntries(Object.entries((schema as z.SomeZodObject).shape).map(([key, value]) => [key, schemaDefaults(value, includePrimitiveProperties, includeNonPrimitiveProperties)]))
     }
     case z.ZodFirstPartyTypeKind.ZodString:
       return ''
@@ -43,7 +43,7 @@ export default function schemaDefaults<Schema extends z.ZodFirstPartySchemaTypes
       const arraySchema = schema as z.ZodArray<any>
       const elementSchema = arraySchema.element
       // Return an array of 1 - 10 elements in the array
-      const elements = Array.from({ length: 5 }).map(() => schemaDefaults(elementSchema)) as z.TypeOf<Schema>
+      const elements = Array.from({ length: 5 }).map(() => schemaDefaults(elementSchema, includePrimitiveProperties, includeNonPrimitiveProperties)) as z.TypeOf<Schema>
       return elements
     }
 
@@ -53,7 +53,7 @@ export default function schemaDefaults<Schema extends z.ZodFirstPartySchemaTypes
       if (strippedOptionalSchema._def.typeName === z.ZodFirstPartyTypeKind.ZodArray && !includeNonPrimitiveProperties) return undefined
       else if (strippedOptionalSchema._def.typeName === z.ZodFirstPartyTypeKind.ZodObject && !includeNonPrimitiveProperties) return undefined
 
-      return includePrimitiveProperties ? schemaDefaults(strippedOptionalSchema) : undefined
+      return includePrimitiveProperties ? schemaDefaults(strippedOptionalSchema, includePrimitiveProperties, includeNonPrimitiveProperties) : undefined
 
     case z.ZodFirstPartyTypeKind.ZodNumber:
       return 0
