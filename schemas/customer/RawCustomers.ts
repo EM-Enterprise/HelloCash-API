@@ -4,6 +4,7 @@ import { useSchema } from '@/schemas/utils/useSchema'
 import { RawCustomerSchema } from '@/schemas/customer/RawCustomer'
 
 /**
+ * This schema defines the structure of a raw-customers object including default values
  * @internal
  */
 export const RawCustomersSchema = z.object({

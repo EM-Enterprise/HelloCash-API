@@ -4,6 +4,7 @@ import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 import { useSchema } from '@/schemas/utils/useSchema'
 
 /**
+ * This schema defines the structure of a raw-customer object including default values
  * @internal
  */
 export const RawCustomerSchema = z.object({
