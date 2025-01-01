@@ -4,22 +4,22 @@ import { z, ZodTypeAny } from 'zod'
  * @internal
  */
 export interface SchemaOptionalProps {
-  includePrimitiveProperties?: boolean
-  includeNonPrimitiveProperties?: boolean
+  includeOptional_PrimitiveProperties?: boolean
+  includeOptional_NonPrimitiveProperties?: boolean
 }
 
 /**
  * Returns a default values for a given schema.
  * @param schema The schema to generate default values for.
- * @param options,includePrimitiveProperties If true, optinal primitive properties such as strings, numbers, and booleans are going to be instantiated.
- * @param options,includeNonPrimitiveProperties If true, non-primitive properties such as objects and arrays are going to instantiated as well.
+ * @param options,includeOptional_PrimitiveProperties If true, optinal primitive properties such as strings, numbers, and booleans are going to be instantiated.
+ * @param options,includeOptional_NonPrimitiveProperties If true, non-primitive properties such as objects and arrays are going to instantiated as well.
  * @internal
  */
 export default function schemaDefaults<Schema extends z.ZodFirstPartySchemaTypes>(
   schema: Schema,
-  options: SchemaOptionalProps = { includePrimitiveProperties: true, includeNonPrimitiveProperties: false },
+  options: SchemaOptionalProps = { includeOptional_PrimitiveProperties: true, includeOptional_NonPrimitiveProperties: false },
 ): z.TypeOf<Schema> {
-  if (options.includePrimitiveProperties === undefined) options.includePrimitiveProperties = true
+  if (options.includeOptional_PrimitiveProperties === undefined) options.includeOptional_PrimitiveProperties = true
 
   switch (schema._def.typeName) {
     case z.ZodFirstPartyTypeKind.ZodDefault:
@@ -51,10 +51,10 @@ export default function schemaDefaults<Schema extends z.ZodFirstPartySchemaTypes
     case z.ZodFirstPartyTypeKind.ZodOptional:
       const strippedOptionalSchema = (schema as z.ZodOptional<ZodTypeAny>).unwrap()
 
-      if (strippedOptionalSchema._def.typeName === z.ZodFirstPartyTypeKind.ZodArray && !options.includeNonPrimitiveProperties) return undefined
-      else if (strippedOptionalSchema._def.typeName === z.ZodFirstPartyTypeKind.ZodObject && !options.includeNonPrimitiveProperties) return undefined
+      if (strippedOptionalSchema._def.typeName === z.ZodFirstPartyTypeKind.ZodArray && !options.includeOptional_NonPrimitiveProperties) return undefined
+      else if (strippedOptionalSchema._def.typeName === z.ZodFirstPartyTypeKind.ZodObject && !options.includeOptional_NonPrimitiveProperties) return undefined
 
-      return options.includePrimitiveProperties ? schemaDefaults(strippedOptionalSchema, options) : undefined
+      return options.includeOptional_PrimitiveProperties ? schemaDefaults(strippedOptionalSchema, options) : undefined
 
     case z.ZodFirstPartyTypeKind.ZodNumber:
       return 0
