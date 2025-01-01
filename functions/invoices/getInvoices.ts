@@ -1,6 +1,7 @@
 import GET from '@/api/GET'
 import parseRawInvoice from '@/functions/invoices/parseRawInvoice'
-import { Invoice, RawInvoices } from '@/schemas/Invoice'
+import { Invoice } from '@/schemas/Invoice'
+import { RawInvoices } from '@/schemas/invoice/RawInvoices'
 
 export async function getInvoices(limit: number = 1000) {
   if (limit === 0) return []
