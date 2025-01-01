@@ -1,7 +1,11 @@
 import { z } from 'zod'
 import { getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
+import { stripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 
-export const CustomerSchema = z.object({
+/**
+ * @internal
+ */
+export const CustomerSchema_DefaultValues = z.object({
   id: z.string().default(getRandomNumberAsString()),
   timestamp: z
     .string()
@@ -25,7 +29,10 @@ export const CustomerSchema = z.object({
   notes: z.array(z.string()).default(['Notes']).optional(),
 })
 
-export const RawCustomerSchema = z.object({
+/**
+ * @internal
+ */
+export const RawCustomerSchema_DefaultValues = z.object({
   user_id: z.string().default(getRandomNumberAsString()),
   user_timestamp: z
     .string()
@@ -50,6 +57,9 @@ export const RawCustomerSchema = z.object({
 
   user_custom_fields: z.any(),
 })
+
+export const CustomerSchema = stripZodDefault(CustomerSchema_DefaultValues)
+export const RawCustomerSchema = stripZodDefault(RawCustomerSchema_DefaultValues)
 
 export const RawCustomersSchema = z.object({
   users: z.array(RawCustomerSchema),
