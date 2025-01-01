@@ -1,5 +1,5 @@
-import { Customer, CustomerSchema, RawCustomer } from '@/schemas/customer/Customer'
-import { validateRawCustomer } from '@/schemas/customer/RawCustomer'
+import { Customer, validateCustomer } from '@/schemas/customer/Customer'
+import { RawCustomer, validateRawCustomer } from '@/schemas/customer/RawCustomer'
 
 /**
  * Function that receives a given value and returns that value or undefined if the value is null
@@ -38,5 +38,5 @@ export default function parseRawCustomer(raw: RawCustomer): Customer {
     notes: parseNull<string | null, string[]>(rawCustomer.user_notes, (notes) => notes.split('\n')),
   }
 
-  return CustomerSchema.parse(customer)
+  return validateCustomer(customer)
 }

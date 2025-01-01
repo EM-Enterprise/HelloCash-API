@@ -1,11 +1,13 @@
 import { z } from 'zod'
 import { getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
-import { stripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
+import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
+import { useSchema } from '@/schemas/utils/useSchema'
 
 /**
+ * This schema defines the structure of a customer object including default values
  * @internal
  */
-export const CustomerSchema_DefaultValues = z.object({
+export const CustomerSchema = z.object({
   id: z.string().default(getRandomNumberAsString()),
   timestamp: z
     .string()
@@ -29,6 +31,7 @@ export const CustomerSchema_DefaultValues = z.object({
   notes: z.array(z.string()).default(['Notes']).optional(),
 })
 
-export const CustomerSchema = stripZodDefault(CustomerSchema_DefaultValues)
+export type Customer = z.infer<StripZodDefault<typeof CustomerSchema>>
 
-export type Customer = z.infer<typeof CustomerSchema>
+const { validateObject: validateCustomer, getDummyObject: getDummyCustomer, safeParseObject: safeParseCustomer } = useSchema<Customer>(CustomerSchema)
+export { validateCustomer, getDummyCustomer, safeParseCustomer }
