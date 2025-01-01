@@ -2,19 +2,7 @@ import { z } from 'zod'
 import { CustomerSchema } from '@/schemas/customer/Customer'
 import { getRandomNumber, getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
 import { stripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
-
-/**
- * @internal
- */
-export const InvoiceItemSchema_DefaultValues = z.object({
-  id: z.number().default(getRandomNumber()),
-  name: z.string().default('Item-' + getRandomNumberAsString()),
-  quantity: z.number().default(0),
-  price: z.number().default(0),
-  taxRate: z.number().default(0),
-  discount: z.number().default(0),
-})
-export const InvoiceItemSchema = stripZodDefault(InvoiceItemSchema_DefaultValues)
+import { InvoiceItemSchema } from '@/schemas/invoice/InvoiceItem'
 
 /**
  * @internal
@@ -32,4 +20,3 @@ export const InvoiceSchema_DefaultValues = z.object({
 export const InvoiceSchema = stripZodDefault(InvoiceSchema_DefaultValues)
 
 export type Invoice = z.infer<typeof InvoiceSchema>
-export type InvoiceItem = z.infer<typeof InvoiceItemSchema>
