@@ -1,4 +1,5 @@
-import { Customer, CustomerSchema, RawCustomer, RawCustomerSchema } from '@/schemas/customer/Customer'
+import { Customer, CustomerSchema, RawCustomer } from '@/schemas/customer/Customer'
+import { validateRawCustomer } from '@/schemas/customer/RawCustomer'
 
 /**
  * Function that receives a given value and returns that value or undefined if the value is null
@@ -15,7 +16,7 @@ function parseNull<V, O = V>(raw: V, callback?: (value: NonNullable<V>) => NonNu
  * @internal
  */
 export default function parseRawCustomer(raw: RawCustomer): Customer {
-  const rawCustomer = RawCustomerSchema.parse(raw)
+  const rawCustomer = validateRawCustomer(raw)
 
   const customer: Customer = {
     id: rawCustomer.user_id,
