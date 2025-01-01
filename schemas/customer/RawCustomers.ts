@@ -1,13 +1,13 @@
 import { z } from 'zod'
-import { RawCustomerSchema_DefaultValues } from '@/schemas/customer/Customer'
 import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 import { useSchema } from '@/schemas/utils/useSchema'
+import { RawCustomerSchema } from '@/schemas/customer/RawCustomer'
 
 /**
  * @internal
  */
 export const RawCustomersSchema = z.object({
-  users: z.array(RawCustomerSchema_DefaultValues),
+  users: z.array(RawCustomerSchema),
 })
 
 export type RawCustomers = z.infer<StripZodDefault<typeof RawCustomersSchema>>
