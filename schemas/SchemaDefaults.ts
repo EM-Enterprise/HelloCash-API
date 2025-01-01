@@ -43,7 +43,7 @@ export default function schemaDefaults<Schema extends z.ZodFirstPartySchemaTypes
     case z.ZodFirstPartyTypeKind.ZodArray: {
       const arraySchema = schema as z.ZodArray<any>
       const elementSchema = arraySchema.element
-      // Return an array of 1 - 10 elements in the array
+
       const elements = Array.from({ length: 5 }).map(() => schemaDefaults(elementSchema, options)) as z.TypeOf<Schema>
       return elements
     }
@@ -51,8 +51,13 @@ export default function schemaDefaults<Schema extends z.ZodFirstPartySchemaTypes
     case z.ZodFirstPartyTypeKind.ZodOptional:
       const strippedOptionalSchema = (schema as z.ZodOptional<ZodTypeAny>).unwrap()
 
-      if (strippedOptionalSchema._def.typeName === z.ZodFirstPartyTypeKind.ZodArray && !options.includeOptional_NonPrimitiveProperties) return undefined
-      else if (strippedOptionalSchema._def.typeName === z.ZodFirstPartyTypeKind.ZodObject && !options.includeOptional_NonPrimitiveProperties) return undefined
+      switch (strippedOptionalSchema._def.typeName) {
+        case z.ZodFirstPartyTypeKind.ZodObject:
+          return options.includeOptional_NonPrimitiveProperties ? schemaDefaults(strippedOptionalSchema, options) : undefined
+
+        case z.ZodFirstPartyTypeKind.ZodArray:
+          return options.includeOptional_NonPrimitiveProperties ? schemaDefaults(strippedOptionalSchema, options) : undefined
+      }
 
       return options.includeOptional_PrimitiveProperties ? schemaDefaults(strippedOptionalSchema, options) : undefined
 
