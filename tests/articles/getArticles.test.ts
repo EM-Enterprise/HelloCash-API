@@ -3,7 +3,8 @@ import { beforeEach } from '@jest/globals'
 import * as dotenv from 'dotenv'
 import { getAuthorization, setAuthorization } from '@/config/authorization'
 import schemaDefaults from '@/schemas/SchemaDefaults'
-import { RawArticles, RawArticleSchema, RawArticlesSchema } from '@/schemas/article/Article'
+import { RawArticles, RawArticlesSchema } from '@/schemas/article/Article'
+import { getDummyRawArticle } from '@/schemas/article/RawArticle'
 
 dotenv.config()
 
@@ -27,7 +28,7 @@ jest.spyOn(mockGet, 'default').mockImplementation((...args) => {
     }
 
     const response: RawArticles = schemaDefaults(RawArticlesSchema)
-    response.articles = Array.from({ length: limit === -1 ? 1000 : limit }).map(() => schemaDefaults(RawArticleSchema))
+    response.articles = Array.from({ length: limit === -1 ? 1000 : limit }).map(() => getDummyRawArticle())
 
     resolve(response)
   })
