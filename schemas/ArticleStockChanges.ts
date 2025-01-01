@@ -10,15 +10,4 @@ export const ArticleStockChangeSchema = z.object({
   delivery_number: z.string(),
 })
 
-export const RawArticleStockChangeSchema = z.object({
-  stock_id: z.string(),
-  stock_article_id: z.string(),
-  stock_timestamp: z.string(),
-  stock_change: z.string(),
-  stock_invoice_number: z.string(),
-  stock_delivery_note_number: z.string(),
-  stock_description: z.string(),
-})
-
 export type ArticleStockChange = z.infer<typeof ArticleStockChangeSchema>
-export type RawArticleStockChange = z.infer<typeof RawArticleStockChangeSchema>
