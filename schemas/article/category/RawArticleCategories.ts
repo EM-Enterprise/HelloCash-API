@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { RawArticleCategorySchema } from '@/schemas/article-category/RawArticleCategory'
+import { RawArticleCategorySchema } from '@/schemas/article/category/RawArticleCategory'
 import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 import { useSchema } from '@/schemas/utils/useSchema'
 
