@@ -1,6 +1,6 @@
 import GET from '@/api/GET'
-import { ArticleCategory } from '@/schemas/ArticleCategory'
 import { RawArticleCategories } from '@/schemas/article-category/RawArticleCategories'
+import { ArticleCategory } from '@/schemas/article-category/ArticleCategory'
 
 export default async function getCategories() {
   const { categories } = await GET<RawArticleCategories>('articles/categories')
