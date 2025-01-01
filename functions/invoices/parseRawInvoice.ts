@@ -1,5 +1,6 @@
-import { Invoice, InvoiceItem, RawInvoice, RawInvoiceSchema } from '@/schemas/Invoice'
+import { Invoice, InvoiceItem } from '@/schemas/Invoice'
 import { Customer } from '@/schemas/customer/Customer'
+import { RawInvoice, validateRawInvoice } from '@/schemas/invoice/RawInvoice'
 
 function parseCustomer(rawInvoiceCustomer: RawInvoice['customer']): Customer | undefined {
   if (!rawInvoiceCustomer) return undefined
@@ -29,7 +30,7 @@ function parseNumber(value: string | undefined): number {
  * @internal
  */
 export default function parseRawInvoice(raw: RawInvoice): Invoice {
-  const rawInvoice = RawInvoiceSchema.parse(raw)
+  const rawInvoice = validateRawInvoice(raw)
 
   return {
     system_id: rawInvoice.invoice_id,

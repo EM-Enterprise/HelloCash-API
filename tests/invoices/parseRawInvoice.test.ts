@@ -1,7 +1,8 @@
 import { describe } from '@jest/globals'
 import { ZodError } from 'zod'
-import { InvoiceSchema, RawInvoice } from '@/schemas/Invoice'
+import { InvoiceSchema } from '@/schemas/Invoice'
 import parseRawInvoice from '@/functions/invoices/parseRawInvoice'
+import { RawInvoice } from '@/schemas/invoice/RawInvoice'
 
 const dummyRawInvoice: RawInvoice = {
   invoice_id: '1',
