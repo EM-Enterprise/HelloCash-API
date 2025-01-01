@@ -1,5 +1,5 @@
 import GET from '@/api/GET'
-import { Article, RawArticles } from '@/schemas/Article'
+import { Article, RawArticles } from '@/schemas/article/Article'
 
 function parseNumber(raw: string | undefined): number | undefined {
   return raw ? parseFloat(raw) : undefined

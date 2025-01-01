@@ -1,8 +1,8 @@
 import { beforeEach, describe } from '@jest/globals'
 import GET from '@/api/GET'
 import { setAuthorization } from '@/config/authorization'
-import { RawArticles } from '@/schemas/Article'
 import { RawInvoices, safeParseRawInvoices } from '@/schemas/invoice/RawInvoices'
+import { RawArticles } from '@/schemas/article/Article'
 
 beforeEach(() => {
   setAuthorization(process.env.AUTH_TOKEN!)

@@ -1,6 +1,6 @@
 import GET from '@/api/GET'
-import { Article } from '@/schemas/Article'
 import { ArticleStockChange, RawArticleStockChange } from '@/schemas/ArticleStockChanges'
+import { Article } from '@/schemas/article/Article'
 
 export default async function getArticleStockChanges(id: Article['id']) {
   const changes = await GET<RawArticleStockChange[]>(`articles/${id}/stock-changes`)

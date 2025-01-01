@@ -3,7 +3,7 @@ import { beforeEach } from '@jest/globals'
 import * as dotenv from 'dotenv'
 import { getAuthorization, setAuthorization } from '@/config/authorization'
 import schemaDefaults from '@/schemas/SchemaDefaults'
-import { RawArticles, RawArticleSchema, RawArticlesSchema } from '@/schemas/Article'
+import { RawArticles, RawArticleSchema, RawArticlesSchema } from '@/schemas/article/Article'
 
 dotenv.config()
 
