@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { RawArticleSchema } from '@/schemas/article/RawArticle'
 
 export const ArticleSchema = z.object({
   id: z.number().optional(),
@@ -17,9 +16,4 @@ export const ArticleSchema = z.object({
   category_id: z.number().optional(),
 })
 
-export const RawArticlesSchema = z.object({
-  articles: z.array(RawArticleSchema),
-})
-
 export type Article = z.infer<typeof ArticleSchema>
-export type RawArticles = z.infer<typeof RawArticlesSchema>
