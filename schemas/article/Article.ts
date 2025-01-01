@@ -1,5 +1,10 @@
 import { z } from 'zod'
+import { useSchema } from '@/schemas/utils/useSchema'
 
+/**
+ * This schema defines the structure of an article object including default values.
+ * @internal
+ */
 export const ArticleSchema = z.object({
   id: z.number().optional(),
   name: z.string().default('Article-XY'),
@@ -17,3 +22,6 @@ export const ArticleSchema = z.object({
 })
 
 export type Article = z.infer<typeof ArticleSchema>
+
+const { validateObject: validateArticle, getDummyObject: getDummyArticle, safeParseObject: safeParseArticle } = useSchema<Article>(ArticleSchema)
+export { validateArticle, getDummyArticle, safeParseArticle }
