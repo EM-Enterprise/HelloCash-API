@@ -30,22 +30,45 @@ export type StripZodDefault<T extends z.ZodTypeAny> =
  * @internal
  */
 export function stripZodDefault<Schema extends z.ZodTypeAny>(schema: Schema): StripZodDefault<Schema> {
-  if (schema instanceof z.ZodDefault) {
-    // returns the inner type to remove the default
-    return stripZodDefault(schema._def.innerType)
-  } else if (schema instanceof z.ZodObject) {
-    const shape: Record<string, z.ZodTypeAny> = {}
-    for (const key in schema.shape) {
-      shape[key] = stripZodDefault(schema.shape[key])
+  switch (schema._def.typeName) {
+    // 1) If it's z.default(...), unwrap
+    case z.ZodFirstPartyTypeKind.ZodDefault: {
+      const inner = (schema as unknown as z.ZodDefault<z.ZodTypeAny>)._def.innerType
+      return stripZodDefault(inner) as StripZodDefault<Schema>
     }
-    // re-construct ZodObject with stripped shape
-    return z.object(shape) as StripZodDefault<Schema>
-  } else if (schema instanceof z.ZodArray) {
-    return z.array(stripZodDefault(schema.element)) as StripZodDefault<Schema>
-  } else if (schema instanceof z.ZodOptional) {
-    return z.optional(stripZodDefault(schema.unwrap())) as StripZodDefault<Schema>
-  }
-  // ... handle other variants if needed
 
-  return schema as StripZodDefault<Schema> // base case, return unchanged
+    // 2) If it's an object, strip each property
+    case z.ZodFirstPartyTypeKind.ZodObject: {
+      const objSchema = schema as unknown as z.ZodObject<any>
+      const newShape: Record<string, z.ZodTypeAny> = {}
+      for (const key in objSchema.shape) {
+        newShape[key] = stripZodDefault(objSchema.shape[key])
+      }
+      return z.object(newShape) as StripZodDefault<Schema>
+    }
+
+    // 3) If it's an array, strip its element
+    case z.ZodFirstPartyTypeKind.ZodArray: {
+      const arrSchema = schema as unknown as z.ZodArray<z.ZodTypeAny>
+      const elementStripped = stripZodDefault(arrSchema.element)
+      return z.array(elementStripped) as StripZodDefault<Schema>
+    }
+
+    // 4) If it's optional, unwrap the inner type, strip, reapply optional
+    case z.ZodFirstPartyTypeKind.ZodOptional: {
+      const unwrapped = (schema as unknown as z.ZodOptional<z.ZodTypeAny>).unwrap()
+      const strippedInner = stripZodDefault(unwrapped)
+      return z.optional(strippedInner) as StripZodDefault<Schema>
+    }
+
+    // 5) If it's nullable, unwrap the inner type, strip, reapply nullable
+    case z.ZodFirstPartyTypeKind.ZodNullable: {
+      const unwrapped = (schema as unknown as z.ZodNullable<z.ZodTypeAny>).unwrap()
+      const strippedInner = stripZodDefault(unwrapped)
+      return z.nullable(strippedInner) as StripZodDefault<Schema>
+    }
+
+    default:
+      return schema as StripZodDefault<Schema>
+  }
 }
