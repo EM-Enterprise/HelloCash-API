@@ -6,7 +6,7 @@ import { useSchema } from '@/schemas/utils/useSchema'
  * This schema defines the structure of a raw-article-stock-change object including default values.
  * @internal
  */
-export const RawStockChange = z.object({
+export const RawStockChangeSchema = z.object({
   stock_id: z.string(),
   stock_article_id: z.string(),
   stock_timestamp: z.string(),
@@ -16,7 +16,7 @@ export const RawStockChange = z.object({
   stock_description: z.string(),
 })
 
-export type RawStockChange = z.infer<StripZodDefault<typeof RawStockChange>>
+export type RawStockChange = z.infer<StripZodDefault<typeof RawStockChangeSchema>>
 
-const { validateObject: validateRawStockChange, getDummyObject: getDummyRawStockChange, safeParseObject: safeParseRawStockChange } = useSchema<RawStockChange>(RawStockChange)
+const { validateObject: validateRawStockChange, getDummyObject: getDummyRawStockChange, safeParseObject: safeParseRawStockChange } = useSchema<RawStockChange>(RawStockChangeSchema)
 export { validateRawStockChange, getDummyRawStockChange, safeParseRawStockChange }
