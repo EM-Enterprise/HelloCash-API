@@ -1,4 +1,4 @@
-import { Customer, CustomerSchema, RawCustomer, RawCustomerSchema } from '@/schemas/Customer'
+import { Customer, CustomerSchema, RawCustomer, RawCustomerSchema } from '@/schemas/customer/Customer/Customer'
 
 /**
  * Function that receives a given value and returns that value or undefined if the value is null

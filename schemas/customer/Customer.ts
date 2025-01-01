@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
 import { stripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
+import { validateSchema } from '@/schemas/utils/validateSchema'
 
 /**
  * @internal
@@ -64,6 +65,10 @@ export const RawCustomerSchema = stripZodDefault(RawCustomerSchema_DefaultValues
 export const RawCustomersSchema = z.object({
   users: z.array(RawCustomerSchema),
 })
+
+export function validateCustomer(object: any) {
+  return validateSchema(CustomerSchema_DefaultValues, object)
+}
 
 export type Customer = z.infer<typeof CustomerSchema>
 export type RawCustomer = z.infer<typeof RawCustomerSchema>

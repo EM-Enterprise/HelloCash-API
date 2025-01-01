@@ -1,5 +1,5 @@
 import { Invoice, InvoiceItem, RawInvoice, RawInvoiceSchema } from '@/schemas/Invoice'
-import { Customer } from '@/schemas/Customer'
+import { Customer } from '@/schemas/customer/Customer'
 
 function parseCustomer(rawInvoiceCustomer: RawInvoice['customer']): Customer | undefined {
   if (!rawInvoiceCustomer) return undefined

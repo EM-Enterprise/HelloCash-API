@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { CustomerSchema } from '@/schemas/Customer'
+import { CustomerSchema } from '@/schemas/customer/Customer/Customer'
 import { getRandomNumber, getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
 import { stripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 

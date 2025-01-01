@@ -1,5 +1,5 @@
 import POST from '@/api/POST'
-import { Customer, RawCustomer } from '@/schemas/Customer'
+import { Customer, RawCustomer } from '@/schemas/customer/Customer/Customer'
 
 export default async function createCustomer(customer: Partial<Omit<Customer, 'timestamp' | 'id'>>): Promise<RawCustomer> {
   const rawUser: Partial<Omit<RawCustomer, 'user_id' | 'user_timestamp' | 'user_custom_fields'>> = {

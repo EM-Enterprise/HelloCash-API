@@ -1,5 +1,5 @@
 import { describe } from '@jest/globals'
-import { CustomerSchema, RawCustomer, RawCustomerSchema } from '@/schemas/Customer'
+import { CustomerSchema, RawCustomer, RawCustomerSchema } from '@/schemas/customer/Customer/Customer'
 import parseRawCustomer from '@/functions/customers/parseRawCustomer'
 import { ZodError } from 'zod'
 import schemaDefaults from '@/schemas/SchemaDefaults'

@@ -1,5 +1,5 @@
 import GET from '@/api/GET'
-import { Customer, RawCustomers } from '@/schemas/Customer'
+import { Customer, RawCustomers } from '@/schemas/customer/Customer/Customer'
 import parseRawCustomer from '@/functions/customers/parseRawCustomer'
 
 export default async function getCustomers(limit: number = -1) {
