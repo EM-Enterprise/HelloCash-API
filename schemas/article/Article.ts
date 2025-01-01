@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { useSchema } from '@/schemas/utils/useSchema'
+import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 
 /**
  * This schema defines the structure of an article object including default values.
@@ -21,7 +22,7 @@ export const ArticleSchema = z.object({
   category_id: z.number().optional(),
 })
 
-export type Article = z.infer<typeof ArticleSchema>
+export type Article = z.infer<StripZodDefault<typeof ArticleSchema>>
 
 const { validateObject: validateArticle, getDummyObject: getDummyArticle, safeParseObject: safeParseArticle } = useSchema<Article>(ArticleSchema)
 export { validateArticle, getDummyArticle, safeParseArticle }
