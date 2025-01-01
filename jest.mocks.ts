@@ -1,6 +1,5 @@
 import { getAuthorization } from '@/config/authorization'
-import schemaDefaults from '@/schemas/SchemaDefaults'
-import { InvoiceSchema_DefaultValues } from '@/schemas/Invoice'
+import { getDummyInvoice } from '@/schemas/Invoice'
 
 jest.mock('@/functions/invoices/getInvoices', () => ({
   getInvoices: jest.fn((limit: number) => {
@@ -11,7 +10,7 @@ jest.mock('@/functions/invoices/getInvoices', () => ({
         rejects(err)
       }
 
-      resolve(Array.from({ length: limit === -1 ? 10 : limit }).map(() => schemaDefaults(InvoiceSchema_DefaultValues)))
+      resolve(Array.from({ length: limit === -1 ? 10 : limit }).map(() => getDummyInvoice()))
     })
   }),
 }))

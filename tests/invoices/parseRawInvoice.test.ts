@@ -1,6 +1,6 @@
 import { describe } from '@jest/globals'
 import { ZodError } from 'zod'
-import { InvoiceSchema } from '@/schemas/Invoice'
+import { safeParseInvoice } from '@/schemas/Invoice'
 import parseRawInvoice from '@/functions/invoices/parseRawInvoice'
 import { RawInvoice } from '@/schemas/invoice/RawInvoice'
 
@@ -78,7 +78,7 @@ describe('#ParseRawInvoice - ', () => {
     const rawInvoice = dummyRawInvoice
     const invoice = parseRawInvoice(rawInvoice)
 
-    expect(InvoiceSchema.safeParse(invoice).success).toBe(true)
+    expect(safeParseInvoice(invoice).success).toBe(true)
   })
 
   test('should throw an error if the raw invoice is invalid', () => {
@@ -92,6 +92,6 @@ describe('#ParseRawInvoice - ', () => {
 
     const invoice = parseRawInvoice(rawInvoice)
 
-    expect(InvoiceSchema.safeParse(invoice).success).toBe(true)
+    expect(safeParseInvoice(invoice).success).toBe(true)
   })
 })
