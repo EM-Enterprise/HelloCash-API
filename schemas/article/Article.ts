@@ -1,24 +1,25 @@
 import { z } from 'zod'
 import { useSchema } from '@/schemas/utils/useSchema'
 import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
+import { getRandomNumber, getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
 
 /**
  * This schema defines the structure of an article object including default values.
  * @internal
  */
 export const ArticleSchema = z.object({
-  id: z.number().optional(),
+  id: z.number().default(getRandomNumber()).optional(),
   name: z.string().default('Article-XY'),
-  code: z.string().optional(),
-  taxClass: z.number().optional(),
-  price: z.number().optional(),
+  code: z.string().default(getRandomNumberAsString()).optional(),
+  taxClass: z.number().default(getRandomNumber()).optional(),
+  price: z.number().default(getRandomNumber()).optional(),
   netPrices: z.object({
-    purchasePrice: z.number().optional(),
-    sellingPrice: z.number().optional(),
+    purchasePrice: z.number().default(getRandomNumber()).optional(),
+    sellingPrice: z.number().default(getRandomNumber()).optional(),
   }),
-  stock: z.number().optional(),
+  stock: z.number().default(getRandomNumber).optional(),
   negativeStockEnabled: z.boolean().optional().catch(false),
-  comments: z.array(z.string()).optional(),
+  comments: z.array(z.string()).optional().catch([]),
   category_id: z.number().optional(),
 })
 
