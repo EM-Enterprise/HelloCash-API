@@ -7,6 +7,7 @@ const config: Config.InitialOptions = {
   testEnvironment: 'node',
   workerThreads: true,
   testTimeout: 10000,
+  verbose: true,
   setupFilesAfterEnv: ['jest-expect-message', './jest.setup.ts', './jest.mocks.ts'],
   // Other Jest configurations...
 
