@@ -1,7 +1,8 @@
 import { describe } from '@jest/globals'
 import { ZodError } from 'zod'
-import { InvoiceSchema, RawInvoice } from '@/schemas/Invoice'
 import parseRawInvoice from '@/functions/invoices/parseRawInvoice'
+import { getDummyRawInvoice, RawInvoice } from '@/schemas/invoice/RawInvoice'
+import { safeParseInvoice } from '@/schemas/invoice/Invoice'
 
 const dummyRawInvoice: RawInvoice = {
   invoice_id: '1',
@@ -77,7 +78,7 @@ describe('#ParseRawInvoice - ', () => {
     const rawInvoice = dummyRawInvoice
     const invoice = parseRawInvoice(rawInvoice)
 
-    expect(InvoiceSchema.safeParse(invoice).success).toBe(true)
+    expect(safeParseInvoice(invoice).success).toBe(true)
   })
 
   test('should throw an error if the raw invoice is invalid', () => {
@@ -91,6 +92,15 @@ describe('#ParseRawInvoice - ', () => {
 
     const invoice = parseRawInvoice(rawInvoice)
 
-    expect(InvoiceSchema.safeParse(invoice).success).toBe(true)
+    expect(safeParseInvoice(invoice).success).toBe(true)
+  })
+
+  test('should parse invoice-customer correctly if optional object exists', () => {
+    const rawInvoice = getDummyRawInvoice({ includeOptional_PrimitiveProperties: true, includeOptional_NonPrimitiveProperties: true })
+    const invoice = parseRawInvoice(rawInvoice)
+
+    expect(safeParseInvoice(invoice).success).toBe(true)
+    expect(invoice.customer).toBeDefined()
+    expect(invoice.customer?.id, 'Expect the id of the invoice-customer to be the same of the rawInvoice').toBe(rawInvoice.customer?.customer_id)
   })
 })
