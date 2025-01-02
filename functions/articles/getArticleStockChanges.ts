@@ -1,12 +1,13 @@
 import GET from '@/api/GET'
-import { Article } from '@/schemas/Article'
-import { ArticleStockChange, RawArticleStockChange } from '@/schemas/ArticleStockChanges'
+import { Article } from '@/schemas/article/Article'
+import { RawStockChange } from '@/schemas/article/stock-changes/RawStockChange'
+import { StockChange } from '@/schemas/article/stock-changes/StockChange'
 
 export default async function getArticleStockChanges(id: Article['id']) {
-  const changes = await GET<RawArticleStockChange[]>(`articles/${id}/stock-changes`)
+  const changes = await GET<RawStockChange[]>(`articles/${id}/stock-changes`)
 
   return changes.map(
-    (change): ArticleStockChange => ({
+    (change): StockChange => ({
       id: parseInt(change.stock_id),
       timestamp: change.stock_timestamp,
       change: parseInt(change.stock_change),

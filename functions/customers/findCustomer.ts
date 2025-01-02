@@ -1,5 +1,5 @@
 import getCustomers from '@/functions/customers/getCustomers'
-import { Customer } from '@/schemas/Customer'
+import { Customer } from '@/schemas/customer/Customer'
 
 /**
  * This function looks for duplicate users based on the given user. In doing so it checks exact matches, partial address matches and partial name matches.

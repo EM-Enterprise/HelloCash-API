@@ -1,21 +1,11 @@
 import { z } from 'zod'
+import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
+import { useSchema } from '@/schemas/utils/useSchema'
 
-export const ArticleSchema = z.object({
-  id: z.number().optional(),
-  name: z.string().default('Article-XY'),
-  code: z.string().optional(),
-  taxClass: z.number().optional(),
-  price: z.number().optional(),
-  netPrices: z.object({
-    purchasePrice: z.number().optional(),
-    sellingPrice: z.number().optional(),
-  }),
-  stock: z.number().optional(),
-  negativeStockEnabled: z.boolean().optional().catch(false),
-  comments: z.array(z.string()).optional(),
-  category_id: z.number().optional(),
-})
-
+/**
+ * This schema defines the structure of a raw-article object including default values.
+ * @internal
+ */
 export const RawArticleSchema = z.object({
   article_id: z.string().optional(),
   article_category_id: z.number().optional(),
@@ -35,10 +25,7 @@ export const RawArticleSchema = z.object({
   article_stockStatus: z.number().optional().catch(0),
 })
 
-export const RawArticlesSchema = z.object({
-  articles: z.array(RawArticleSchema),
-})
+export type RawArticle = z.infer<StripZodDefault<typeof RawArticleSchema>>
 
-export type Article = z.infer<typeof ArticleSchema>
-export type RawArticle = z.infer<typeof RawArticleSchema>
-export type RawArticles = z.infer<typeof RawArticlesSchema>
+const { validateObject: validateRawArticle, getDummyObject: getDummyRawArticle, safeParseObject: safeParseRawArticle } = useSchema<RawArticle>(RawArticleSchema)
+export { validateRawArticle, getDummyRawArticle, safeParseRawArticle }

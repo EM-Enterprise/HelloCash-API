@@ -2,8 +2,7 @@ import { getInvoices } from '@/functions/invoices/getInvoices'
 import * as dotenv from 'dotenv'
 import { setAuthorization } from '@/config/authorization'
 import findInvoiceById from '@/functions/invoices/findInvoiceById'
-import schemaDefaults from '@/schemas/SchemaDefaults'
-import { RawInvoicesSchema } from '@/schemas/Invoice'
+import { getDummyRawInvoices } from '@/schemas/invoice/RawInvoices'
 
 dotenv.config()
 
@@ -15,7 +14,7 @@ beforeEach(() => {
 })
 
 test('findInvoiceById - check for finding correct invoice', async () => {
-  jest.spyOn(mockedGet, 'default').mockImplementation(() => Promise.resolve(schemaDefaults(RawInvoicesSchema)))
+  jest.spyOn(mockedGet, 'default').mockImplementation(() => Promise.resolve(getDummyRawInvoices()))
 
   const invoices = await getInvoices(1)
   const fondInvoice = await findInvoiceById(invoices[0].id)

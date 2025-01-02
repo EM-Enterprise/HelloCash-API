@@ -1,14 +1,14 @@
 import { describe } from '@jest/globals'
-import { CustomerSchema, RawCustomer, RawCustomerSchema } from '@/schemas/Customer'
 import parseRawCustomer from '@/functions/customers/parseRawCustomer'
 import { ZodError } from 'zod'
-import schemaDefaults from '@/schemas/SchemaDefaults'
+import { getDummyRawCustomer, RawCustomer } from '@/schemas/customer/RawCustomer'
+import { safeParseCustomer } from '@/schemas/customer/Customer'
 
 describe('#ParseRawCustomer - ', () => {
   test('check parsing of valid raw-customer data', () => {
-    const customer = parseRawCustomer(schemaDefaults(RawCustomerSchema))
+    const customer = parseRawCustomer(getDummyRawCustomer())
 
-    expect(CustomerSchema.safeParse(customer).success).toBe(true)
+    expect(safeParseCustomer(customer).success).toBe(true)
   })
 
   test('should throw an error if the raw customer data is invalid', () => {
@@ -17,7 +17,7 @@ describe('#ParseRawCustomer - ', () => {
   })
 
   test('should throw an error if the raw customer is missing properties', () => {
-    const rawCustomer = schemaDefaults(RawCustomerSchema) as Partial<RawCustomer>
+    const rawCustomer = getDummyRawCustomer() as Partial<RawCustomer>
     delete rawCustomer.user_id
     expect(() => parseRawCustomer(rawCustomer as RawCustomer)).toThrow(ZodError)
   })

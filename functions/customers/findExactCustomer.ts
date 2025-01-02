@@ -1,5 +1,5 @@
 import getCustomers from '@/functions/customers/getCustomers'
-import { Customer } from '@/schemas/Customer'
+import { Customer } from '@/schemas/customer/Customer'
 
 /**
  * This function looks for exact matches of the given customer-data.
