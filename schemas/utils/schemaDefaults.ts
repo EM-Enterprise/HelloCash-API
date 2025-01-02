@@ -1,6 +1,12 @@
 import { z, ZodTypeAny } from 'zod'
 
 /**
+ * The default size of an array.
+ * @internal
+ */
+export const DEFAULT_ARRAY_SIZE = 5
+
+/**
  * @internal
  */
 export interface SchemaOptionalProps {
@@ -44,7 +50,7 @@ export default function schemaDefaults<Schema extends z.ZodFirstPartySchemaTypes
       const arraySchema = schema as z.ZodArray<any>
       const elementSchema = arraySchema.element
 
-      const elements = Array.from({ length: 5 }).map(() => schemaDefaults(elementSchema, options)) as z.TypeOf<Schema>
+      const elements = Array.from({ length: DEFAULT_ARRAY_SIZE }).map(() => schemaDefaults(elementSchema, options)) as z.TypeOf<Schema>
       return elements
     }
 
