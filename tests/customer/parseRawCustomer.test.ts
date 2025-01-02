@@ -21,4 +21,12 @@ describe('#ParseRawCustomer - ', () => {
     delete rawCustomer.user_id
     expect(() => parseRawCustomer(rawCustomer as RawCustomer)).toThrow(ZodError)
   })
+
+  test('should parse null values correctly', () => {
+    const rawCustomer = getDummyRawCustomer()
+    rawCustomer.user_city = null
+    const customer = parseRawCustomer(rawCustomer)
+
+    expect(customer.city, 'Expect customer city (null) to be undefined after parsing').toBeUndefined()
+  })
 })

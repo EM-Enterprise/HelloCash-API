@@ -7,9 +7,11 @@ import { RawCustomer, validateRawCustomer } from '@/schemas/customer/RawCustomer
  * @param callback - A function that will be called if the value is not null, and receives the value as a parameter used to transform the value
  */
 function parseNull<V, O = V>(raw: V, callback?: (value: NonNullable<V>) => NonNullable<O>): NonNullable<O> | undefined {
-  if (callback && raw) return callback(raw as NonNullable<V>)
+  if (!raw) return undefined
 
-  return (raw as unknown as O) ?? undefined
+  if (callback) return callback(raw as NonNullable<V>)
+
+  return raw as unknown as NonNullable<O>
 }
 
 /**
