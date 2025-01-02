@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - canary
+      - semantic-versioning-patch-releases
   workflow_dispatch:
 
 permissions:
