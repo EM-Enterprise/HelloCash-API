@@ -3,10 +3,12 @@ import { RawArticles } from '@/schemas/article/RawArticles'
 import { Article } from '@/schemas/article/Article'
 
 function parseNumber(raw: string | undefined): number | undefined {
-  return raw ? parseFloat(raw) : undefined
+  if (!raw) return undefined
+
+  return parseFloat(raw)
 }
 
-export default async function getArticles(limit: number = 1000) {
+export default async function getArticles(limit: number = 1000): Promise<Article[]> {
   if (limit === 0) return []
   if (limit < 0) limit = 1000
 
