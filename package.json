@@ -8,7 +8,7 @@
     "dev": "ts-node tests",
     "build": "tsc --build tsconfig.build.json && tsc-alias",
     "test": "jest --coverage",
-    "prepublishOnly": "tsc --build tsconfig.json",
+    "prepublishOnly": "npm run build",
     "docs": "typedoc --options typedoc.json",
     "semantic-release": "semantic-release"
   },
