@@ -10,7 +10,7 @@
 !package.json
 !yarn.lock
 !tsconfig.json
-!tsconfig-build.json
+!tsconfig.build.json
 !ReadMe.md
 
 
