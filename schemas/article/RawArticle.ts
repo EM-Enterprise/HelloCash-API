@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 import { useSchema } from '@/schemas/utils/useSchema'
 import { getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
 
@@ -26,7 +25,7 @@ export const RawArticleSchema = z.object({
   article_stockStatus: z.number().optional().catch(0),
 })
 
-export type RawArticle = z.infer<StripZodDefault<typeof RawArticleSchema>>
+export type RawArticle = z.infer<typeof RawArticleSchema>
 
 const { validateObject: validateRawArticle, getDummyObject: getDummyRawArticle, safeParseObject: safeParseRawArticle } = useSchema<RawArticle>(RawArticleSchema)
 export { validateRawArticle, getDummyRawArticle, safeParseRawArticle }
