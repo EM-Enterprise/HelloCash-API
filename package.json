@@ -6,7 +6,7 @@
   "types": "dist/typings/index",
   "scripts": {
     "dev": "ts-node tests",
-    "build": "tsc --build tsconfig.build.json",
+    "build": "tsc --build tsconfig.build.json && tsc-alias",
     "test": "jest --coverage",
     "prepublishOnly": "tsc --build tsconfig.json",
     "docs": "typedoc --options typedoc.json",
@@ -38,6 +38,7 @@
     "prettier": "^3.2.5",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.10",
     "typedoc": "^0.27.6",
     "typedoc-plugin-include-example": "^2.0.2",
     "typedoc-plugin-markdown": "^4.4.0",
