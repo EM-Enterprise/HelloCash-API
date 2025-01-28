@@ -1,6 +1,5 @@
 import { z } from 'zod'
 import { getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
-import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 import { useSchema } from '@/schemas/utils/useSchema'
 
 /**
@@ -33,7 +32,7 @@ export const RawCustomerSchema = z.object({
   user_custom_fields: z.any(),
 })
 
-export type RawCustomer = z.infer<StripZodDefault<typeof RawCustomerSchema>>
+export type RawCustomer = z.infer<typeof RawCustomerSchema>
 
 const { validateObject: validateRawCustomer, getDummyObject: getDummyRawCustomer, safeParseObject: safeParseRawCustomer } = useSchema<RawCustomer>(RawCustomerSchema)
 export { validateRawCustomer, getDummyRawCustomer, safeParseRawCustomer }

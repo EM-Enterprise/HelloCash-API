@@ -1,6 +1,5 @@
 import { getRandomNumber, getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
 import { z } from 'zod'
-import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 import { useSchema } from '@/schemas/utils/useSchema'
 
 /**
@@ -16,7 +15,7 @@ export const InvoiceItemSchema = z.object({
   discount: z.number().default(0),
 })
 
-export type InvoiceItem = z.infer<StripZodDefault<typeof InvoiceItemSchema>>
+export type InvoiceItem = z.infer<typeof InvoiceItemSchema>
 
 const { validateObject: validateInvoiceItem, getDummyObject: getDummyInvoiceItem, safeParseObject: safeParseInvoiceItem } = useSchema<InvoiceItem>(InvoiceItemSchema)
 export { validateInvoiceItem, getDummyInvoiceItem, safeParseInvoiceItem }

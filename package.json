@@ -3,14 +3,41 @@
   "version": "1.0.5",
   "description": "",
   "main": "dist/index",
-  "types": "dist/typings/index",
+  "types": "dist/index",
   "scripts": {
     "dev": "ts-node tests",
     "build": "tsc --build tsconfig.build.json && tsc-alias",
     "test": "jest --coverage",
-    "prepublishOnly": "tsc --build tsconfig.json",
+    "prepublishOnly": "npm run build",
     "docs": "typedoc --options typedoc.json",
     "semantic-release": "semantic-release"
+  },
+  "exports": {
+    "./schemas/*": {
+      "import": "./dist/schemas/*.js",
+      "require": "./dist/schemas/*.cjs",
+      "types": "./dist/schemas/*.d.ts"
+    },
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./internal/functions/*": {
+      "import": "./dist/functions/*.js",
+      "require": "./dist/functions/*.cjs",
+      "types": "./dist/functions/*.d.ts"
+    },
+    "./internal/config/*": {
+      "import": "./dist/config/*.js",
+      "require": "./dist/config/*.cjs",
+      "types": "./dist/config/*.d.ts"
+    },
+    "./internal/api/*": {
+      "import": "./dist/api/*.js",
+      "require": "./dist/api/*.cjs",
+      "types": "./dist/api/*.d.ts"
+    }
   },
   "author": "",
   "license": "ISC",
