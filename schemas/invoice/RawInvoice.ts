@@ -54,7 +54,7 @@ export const RawInvoiceSchema = z.object({
 
   customer: z
     .object({
-      customer_id: z.string(),
+      customer_id: z.string().default(getRandomNumberAsString()),
       customer_salutation: z.string(),
       customer_firstName: z.string(),
       customer_surName: z.string(),
