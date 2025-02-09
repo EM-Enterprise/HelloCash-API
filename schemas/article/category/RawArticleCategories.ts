@@ -1,6 +1,5 @@
 import { z } from 'zod'
 import { RawArticleCategorySchema } from '@/schemas/article/category/RawArticleCategory'
-import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 import { useSchema } from '@/schemas/utils/useSchema'
 
 /**
@@ -12,7 +11,7 @@ export const RawArticleCategoriesSchema = z.object({
   count: z.number(),
 })
 
-export type RawArticleCategories = z.infer<StripZodDefault<typeof RawArticleCategoriesSchema>>
+export type RawArticleCategories = z.infer<typeof RawArticleCategoriesSchema>
 
 const {
   validateObject: validateRawArticleCategories,

@@ -3,7 +3,6 @@ import { CustomerSchema } from '@/schemas/customer/Customer'
 import { getRandomNumber, getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
 import { InvoiceItemSchema } from '@/schemas/invoice/InvoiceItem'
 import { useSchema } from '@/schemas/utils/useSchema'
-import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 
 /**
  * This schema defines the structure of an invoice including default values
@@ -20,7 +19,7 @@ export const InvoiceSchema = z.object({
   items: z.array(InvoiceItemSchema),
 })
 
-export type Invoice = z.infer<StripZodDefault<typeof InvoiceSchema>>
+export type Invoice = z.infer<typeof InvoiceSchema>
 
 const { validateObject: validateInvoice, getDummyObject: getDummyInvoice, safeParseObject: safeParseInvoice } = useSchema<Invoice>(InvoiceSchema)
 export { validateInvoice, getDummyInvoice, safeParseInvoice }

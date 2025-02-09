@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 import { useSchema } from '@/schemas/utils/useSchema'
 
 /**
@@ -12,7 +11,7 @@ export const RawArticleCategorySchema = z.object({
   article_category_name: z.string(),
 })
 
-export type RawArticleCategory = z.infer<StripZodDefault<typeof RawArticleCategorySchema>>
+export type RawArticleCategory = z.infer<typeof RawArticleCategorySchema>
 
 const { validateObject: validateRawArticleCategory, getDummyObject: getDummyRawArticleCategory, safeParseObject: safeParseRawArticleCategory } = useSchema<RawArticleCategory>(RawArticleCategorySchema)
 export { validateRawArticleCategory, getDummyRawArticleCategory, safeParseRawArticleCategory }
