@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 import { useSchema } from '@/schemas/utils/useSchema'
 
 /**
@@ -16,7 +15,7 @@ export const RawStockChangeSchema = z.object({
   stock_description: z.string(),
 })
 
-export type RawStockChange = z.infer<StripZodDefault<typeof RawStockChangeSchema>>
+export type RawStockChange = z.infer<typeof RawStockChangeSchema>
 
 const { validateObject: validateRawStockChange, getDummyObject: getDummyRawStockChange, safeParseObject: safeParseRawStockChange } = useSchema<RawStockChange>(RawStockChangeSchema)
 export { validateRawStockChange, getDummyRawStockChange, safeParseRawStockChange }

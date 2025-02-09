@@ -1,6 +1,5 @@
 import { z } from 'zod'
 import { getRandomNumber, getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
-import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 import { useSchema } from '@/schemas/utils/useSchema'
 
 /**
@@ -31,7 +30,7 @@ export const CustomerSchema = z.object({
   notes: z.array(z.string()).default(['Notes']).optional(),
 })
 
-export type Customer = z.infer<StripZodDefault<typeof CustomerSchema>>
+export type Customer = z.infer<typeof CustomerSchema>
 
 const { validateObject: validateCustomer, getDummyObject: getDummyCustomer, safeParseObject: safeParseCustomer } = useSchema<Customer>(CustomerSchema)
 export { validateCustomer, getDummyCustomer, safeParseCustomer }
