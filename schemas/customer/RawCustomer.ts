@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
+import { getRandomNumber, getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
 import { useSchema } from '@/schemas/utils/useSchema'
 
 /**
@@ -7,7 +7,7 @@ import { useSchema } from '@/schemas/utils/useSchema'
  * @internal
  */
 export const RawCustomerSchema = z.object({
-  user_id: z.string().default(getRandomNumberAsString()),
+  user_id: z.number().default(getRandomNumber()),
   user_timestamp: z
     .string()
     .nullable()
