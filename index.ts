@@ -23,4 +23,4 @@ class Hellocash {
   }
 }
 
-export default Hellocash
+export = Hellocash
