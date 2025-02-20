@@ -5,16 +5,16 @@
       {
         "preset": "conventionalCommits",
         "releaseRules": [
-          { "type": "refactor", "scope": "*", "release": "patch" },
-          { "type": "ref", "scope": "*", "release": "patch" },
-          { "type": "test", "scope": "*", "release": "patch" },
-          { "type": "tests", "scope": "*", "release": "patch" },
+          { "type": "refactor", "release": "minor" },
+          { "type": "ref", "release": "minor" },
+          { "type": "test", "release": "patch" },
+          { "type": "tests", "release": "patch" },
 
-          { "type": "revert", "scope": "*", "release": "patch" },
-          { "type": "docs", "scope": "*", "release": "patch" },
-          { "type": "style", "scope": "*", "release": "patch" },
-          { "type": "chore", "scope": "*", "release": "patch" },
-          { "type": "ci", "scope": "*", "release": "patch" }
+          { "type": "revert", "release": "patch" },
+          { "type": "docs", "release": "patch" },
+          { "type": "style", "release": "patch" },
+          { "type": "chore", "release": "minor" },
+          { "type": "ci", "release": "patch" }
         ]
       }
     ],
@@ -52,5 +52,5 @@
       }
     ]
   ],
-  "branches": ["main", "master", { "name": "canary", "prerelease": true }]
+  "branches": ["main", { "name": "canary", "prerelease": true }]
 }

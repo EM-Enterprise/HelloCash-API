@@ -101,6 +101,6 @@ describe('#ParseRawInvoice - ', () => {
 
     expect(safeParseInvoice(invoice).success).toBe(true)
     expect(invoice.customer).toBeDefined()
-    expect(invoice.customer?.id, 'Expect the id of the invoice-customer to be the same of the rawInvoice').toBe(rawInvoice.customer?.customer_id)
+    expect(invoice.customer?.id, 'Expect the id of the invoice-customer to be the same of the rawInvoice').toBe(parseFloat(rawInvoice.customer?.customer_id || ''))
   })
 })

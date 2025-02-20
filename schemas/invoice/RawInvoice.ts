@@ -1,6 +1,5 @@
 import { z } from 'zod'
 import { getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
-import { StripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 import { useSchema } from '@/schemas/utils/useSchema'
 
 /**
@@ -54,7 +53,7 @@ export const RawInvoiceSchema = z.object({
 
   customer: z
     .object({
-      customer_id: z.string(),
+      customer_id: z.string().default(getRandomNumberAsString()),
       customer_salutation: z.string(),
       customer_firstName: z.string(),
       customer_surName: z.string(),
@@ -79,7 +78,7 @@ export const RawInvoiceSchema = z.object({
   ),
 })
 
-export type RawInvoice = z.infer<StripZodDefault<typeof RawInvoiceSchema>>
+export type RawInvoice = z.infer<typeof RawInvoiceSchema>
 
 const { validateObject: validateRawInvoice, getDummyObject: getDummyRawInvoice, safeParseObject: safeParseRawInvoice } = useSchema<RawInvoice>(RawInvoiceSchema)
 export { validateRawInvoice, getDummyRawInvoice, safeParseRawInvoice }

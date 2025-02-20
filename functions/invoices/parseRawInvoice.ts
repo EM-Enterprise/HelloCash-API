@@ -7,7 +7,7 @@ function parseCustomer(rawInvoiceCustomer: RawInvoice['customer']): Customer | u
   if (!rawInvoiceCustomer) return undefined
 
   return {
-    id: rawInvoiceCustomer.customer_id,
+    id: parseFloat(rawInvoiceCustomer.customer_id),
     firstName: rawInvoiceCustomer.customer_firstName,
     lastName: rawInvoiceCustomer.customer_surName,
     email: rawInvoiceCustomer.customer_email,
