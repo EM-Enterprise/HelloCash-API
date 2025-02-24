@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node 21
         uses: actions/setup-node@v4
@@ -35,10 +35,10 @@ jobs:
 
       - name: Upload Documentation to GitHub Pages
         id: "upload-documentation"
-        uses: "actions/upload-pages-artifact@v2"
+        uses: "actions/upload-pages-artifact@v4"
         with:
           path: "docs/"
 
       - name: Deploy Documentation to GitHub Pages
         id: "deployment"
-        uses: "actions/deploy-pages@v2"
+        uses: "actions/deploy-pages@v4"
