@@ -35,7 +35,7 @@ jobs:
 
       - name: Upload Documentation to GitHub Pages
         id: "upload-documentation"
-        uses: "actions/upload-pages-artifact@v4"
+        uses: "actions/upload-pages-artifact@v3"
         with:
           path: "docs/"
 
