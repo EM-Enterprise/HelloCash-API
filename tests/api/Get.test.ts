@@ -17,9 +17,10 @@ describe('Testing #GET function: ', () => {
   })
 
   test('articles endpoint should return RawArticles object', async () => {
-    const response = await GET<RawArticles>('articles')
+    const response = await GET<RawArticles>('articles', [`limit=${5}`])
 
     expect(safeParseRawArticles(response).success).toBe(true)
+    expect(response.articles.length).toBeGreaterThanOrEqual(5)
   })
 
   test('calling without filter params should yield results anyway', async () => {
