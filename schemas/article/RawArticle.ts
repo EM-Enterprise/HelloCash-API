@@ -8,7 +8,10 @@ import { getRandomNumberAsString } from '@/functions/utils/randomDefaultValues'
  */
 export const RawArticleSchema = z.object({
   article_id: z.string().default(getRandomNumberAsString()).optional(),
-  article_category_id: z.number().optional(),
+  article_category_id: z
+    .number()
+    .transform((val) => (val === null ? undefined : val))
+    .optional(),
   article_name: z.string().default('Article-XY'),
   article_code: z.string().default(getRandomNumberAsString()).optional(),
   article_eanCode: z.string().default(getRandomNumberAsString()).optional(),
