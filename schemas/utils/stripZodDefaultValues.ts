@@ -36,7 +36,7 @@ type StripZodDefault<T extends z.ZodType> =
                       : T
                     : T
 
-type MapTuple<T extends readonly z.ZodType[]> = { [K in keyof T]: StripZodDefault<T[K]> }
+type MapTuple<T extends readonly z.ZodType[]> = T extends readonly [infer Head extends z.ZodType, ...infer Tail extends z.ZodType[]] ? readonly [StripZodDefault<Head>, ...MapTuple<Tail>] : readonly []
 
 /**
  * Recursively unwraps ZodDefault<T> and returns a schema with the same shape but without the `.default()` wrapper.
