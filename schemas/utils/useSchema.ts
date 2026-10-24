@@ -8,7 +8,7 @@ import schemaDefaults, { SchemaOptionalProps } from '@/schemas/utils/schemaDefau
  * @returns An object containing utility functions: getDummyObject, validateObject and safeParseObject based on the given schema
  * @internal
  */
-export function useSchema<Type>(schema: z.ZodTypeAny) {
+export function useSchema<Type>(schema: z.ZodType) {
   /**
    * Validates a given object against a given schema. Throws an error if the object is invalid
    * @param object - The object to be validated
@@ -20,14 +20,14 @@ export function useSchema<Type>(schema: z.ZodTypeAny) {
    * @param options - Defines how optional properties should be handled in terms of their instantiation (undefined / value)
    */
   function getDummyObject(options?: SchemaOptionalProps): Type {
-    return schemaDefaults(schema, options)
+    return schemaDefaults(schema, options) as Type
   }
 
   /**
    * Safely parses an object against its schema and returns the result of the zod.safeParse method
    * @param rawCustomer - The object to be parsed / validated
    */
-  const safeParseObject = (object: any): z.SafeParseReturnType<any, Type> => stripZodDefault(schema).safeParse(object)
+  const safeParseObject = (object: any): z.ZodSafeParseResult<Type> => stripZodDefault(schema).safeParse(object)
 
   return {
     getDummyObject,
