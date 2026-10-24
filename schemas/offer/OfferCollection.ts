@@ -1,5 +1,5 @@
-import { OfferDetailResourceSchema } from '@/schemas/internal/offer/OfferDetailResource'
-import { OfferResourceSchema } from '@/schemas/internal/offer/OfferResource'
+import { OfferDetailResourceSchema } from '@/schemas/offer/OfferDetailResource'
+import { OfferResourceSchema } from '@/schemas/offer/OfferResource'
 import { useSchema } from '@/schemas/utils/useSchema'
 import { z } from 'zod'
 

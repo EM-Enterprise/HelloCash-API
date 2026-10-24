@@ -1,4 +1,4 @@
-import { OfferResourceSchema } from '@/schemas/internal/offer/OfferResource'
+import { OfferResourceSchema } from '@/schemas/offer/OfferResource'
 import { DateTimeSchema } from '@/schemas/Shared/DateTimeSchema'
 import { useSchema } from '@/schemas/utils/useSchema'
 import { z } from 'zod'

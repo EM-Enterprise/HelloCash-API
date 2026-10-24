@@ -1,5 +1,5 @@
 import GET from '@/api/GET'
-import { OfferCollection, validateOfferCollection } from '@/schemas/internal/offer/OfferCollection'
+import { OfferCollection, validateOfferCollection } from '@/schemas/offer/OfferCollection'
 import { z } from 'zod'
 
 export const GetOffersParamsSchema = z.object({
