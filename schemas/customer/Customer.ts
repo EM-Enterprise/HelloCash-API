@@ -32,5 +32,4 @@ export const CustomerSchema = z.object({
 
 export type Customer = z.infer<typeof CustomerSchema>
 
-const { validateObject: validateCustomer, getDummyObject: getDummyCustomer, safeParseObject: safeParseCustomer } = useSchema<Customer>(CustomerSchema)
-export { validateCustomer, getDummyCustomer, safeParseCustomer }
+export const { getDummyCustomer, safeParseCustomer, validateCustomer } = useSchema(CustomerSchema, 'Customer')

@@ -12,5 +12,4 @@ export const RawInvoicesSchema = z.object({
 
 export type RawInvoices = z.infer<typeof RawInvoicesSchema>
 
-const { validateObject: validateRawInvoices, getDummyObject: getDummyRawInvoices, safeParseObject: safeParseRawInvoices } = useSchema<RawInvoices>(RawInvoicesSchema)
-export { validateRawInvoices, getDummyRawInvoices, safeParseRawInvoices }
+export const { getDummyRawInvoices, safeParseRawInvoices, validateRawInvoices } = useSchema(RawInvoicesSchema, 'RawInvoices')

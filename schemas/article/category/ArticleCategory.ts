@@ -12,5 +12,4 @@ export const ArticleCategorySchema = z.object({
 
 export type ArticleCategory = z.infer<typeof ArticleCategorySchema>
 
-const { validateObject: validateArticleCategory, getDummyObject: getDummyArticleCategory, safeParseObject: safeParseArticleCategory } = useSchema<ArticleCategory>(ArticleCategorySchema)
-export { validateArticleCategory, getDummyArticleCategory, safeParseArticleCategory }
+export const { getDummyArticleCategory, safeParseArticleCategory, validateArticleCategory } = useSchema(ArticleCategorySchema, 'ArticleCategory')

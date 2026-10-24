@@ -24,5 +24,4 @@ export const ArticleSchema = z.object({
 
 export type Article = z.infer<typeof ArticleSchema>
 
-const { validateObject: validateArticle, getDummyObject: getDummyArticle, safeParseObject: safeParseArticle } = useSchema<Article>(ArticleSchema)
-export { validateArticle, getDummyArticle, safeParseArticle }
+export const { getDummyArticle, safeParseArticle, validateArticle } = useSchema(ArticleSchema, 'Article')

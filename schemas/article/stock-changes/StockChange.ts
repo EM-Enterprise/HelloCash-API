@@ -17,5 +17,4 @@ export const StockChangeSchema = z.object({
 
 export type StockChange = z.infer<typeof StockChangeSchema>
 
-const { validateObject: validateStockChange, getDummyObject: getDummyStockChange, safeParseObject: safeParseStockChange } = useSchema<StockChange>(StockChangeSchema)
-export { validateStockChange, getDummyStockChange, safeParseStockChange }
+export const { getDummyStockChange, safeParseStockChange, validateStockChange } = useSchema(StockChangeSchema, 'StockChange')

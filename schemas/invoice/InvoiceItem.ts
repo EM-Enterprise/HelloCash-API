@@ -17,5 +17,4 @@ export const InvoiceItemSchema = z.object({
 
 export type InvoiceItem = z.infer<typeof InvoiceItemSchema>
 
-const { validateObject: validateInvoiceItem, getDummyObject: getDummyInvoiceItem, safeParseObject: safeParseInvoiceItem } = useSchema<InvoiceItem>(InvoiceItemSchema)
-export { validateInvoiceItem, getDummyInvoiceItem, safeParseInvoiceItem }
+export const { getDummyInvoiceItem, safeParseInvoiceItem, validateInvoiceItem } = useSchema(InvoiceItemSchema, 'InvoiceItem')

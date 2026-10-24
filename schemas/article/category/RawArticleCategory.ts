@@ -13,5 +13,4 @@ export const RawArticleCategorySchema = z.object({
 
 export type RawArticleCategory = z.infer<typeof RawArticleCategorySchema>
 
-const { validateObject: validateRawArticleCategory, getDummyObject: getDummyRawArticleCategory, safeParseObject: safeParseRawArticleCategory } = useSchema<RawArticleCategory>(RawArticleCategorySchema)
-export { validateRawArticleCategory, getDummyRawArticleCategory, safeParseRawArticleCategory }
+export const { getDummyRawArticleCategory, safeParseRawArticleCategory, validateRawArticleCategory } = useSchema(RawArticleCategorySchema, 'RawArticleCategory')
