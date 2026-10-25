@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { DateAndStringSchema } from '@/schemas/Shared/DateAndStringSchema'
 import { InvoiceCollection, InvoiceCollectionSchema, validateInvoiceCollection } from '@/schemas/invoice/InvoiceCollection'
 
-const GetInvoicesParamsSchema = z.object({
+export const GetInvoicesParamsSchema = z.object({
   from: DateAndStringSchema.optional(),
   limit: z.number().int().min(1).max(250).default(25),
   offset: z.number().int().min(0).default(0),
