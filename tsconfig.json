@@ -16,13 +16,13 @@
     "noImplicitAny": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./*"],
       "@/config/*": ["./config/*"],
       "@/typings/*": ["./typings/*"],
       "@/api/*": ["./src/api/*"],
       "@/schemas/*": ["./schemas/*"],
       "@/lib/*": ["./lib/*"],
-      "@/fetch/*": ["./src/fetch/*"]
+      "@/fetch/*": ["./src/fetch/*"],
+      "@/*": ["./*"]
     }
   },
   "exclude": ["node_modules", "dist", "docs", "tests.ts", "custom-api"]
