@@ -1,13 +1,11 @@
 import { z } from 'zod'
 import POST from '@/fetch/POST'
-import { CreateOffer, validateCreateOffer } from '@/schemas/offer/OfferCreate'
+import { CreateOfferParams, validateCreateOffer } from '@/schemas/offer/OfferCreate'
 import { OfferDetailResource, OfferDetailResourceSchema } from '@/schemas/offer/OfferDetailResource'
 
-export const CreateOfferResponseSchema = z.object({
+const CreateOfferResponseSchema = z.object({
   data: OfferDetailResourceSchema,
 })
-
-export type CreateOfferResponse = z.infer<typeof CreateOfferResponseSchema>
 
 /**
  * Creates a new offer with the provided positions and optional details.
@@ -22,10 +20,10 @@ export type CreateOfferResponse = z.infer<typeof CreateOfferResponseSchema>
  *
  * @see https://myhellocash.com/api/v2/offers
  */
-export default async function createOffer(offer: CreateOffer): Promise<OfferDetailResource> {
+export async function createOffer(offer: CreateOfferParams): Promise<OfferDetailResource> {
   const body = validateCreateOffer(offer)
 
-  const response = await POST<CreateOffer>('offers', body)
+  const response = await POST<CreateOfferParams>('offers', body)
 
   const { data } = CreateOfferResponseSchema.parse(response)
 
