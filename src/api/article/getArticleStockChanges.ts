@@ -1,10 +1,9 @@
 import GET from '@/api/GET'
 import { ArticleStockChangeCollection, ArticleStockChangeCollectionSchema, validateArticleStockChangeCollection } from '@/schemas/article/stock-changes/ArticleStockChangeCollection'
-import { PaginationSchema } from '@/schemas/Shared/PaginationSchema'
+import { PaginationParamsSchema } from '@/schemas/Shared/PaginationSchema'
 import { z } from 'zod'
 
-export const GetArticleStockChangeParamsSchema = PaginationSchema.pick({ limit: true, offset: true })
-export type GetArticleStockChangesParams = z.input<typeof GetArticleStockChangeParamsSchema>
+export type GetArticleStockChangesParams = z.input<typeof PaginationParamsSchema>
 
 const GetArticleStockChangesIdSchema = z.number().int()
 
@@ -33,7 +32,7 @@ const GetArticleStockChangesIdSchema = z.number().int()
  */
 export default async function getArticleStockChanges(id: z.infer<typeof GetArticleStockChangesIdSchema>, params: GetArticleStockChangesParams = {}): Promise<ArticleStockChangeCollection> {
   const articleId = GetArticleStockChangesIdSchema.parse(id)
-  const query = GetArticleStockChangeParamsSchema.parse(params)
+  const query = PaginationParamsSchema.parse(params)
 
   const response = await GET<z.input<typeof ArticleStockChangeCollectionSchema>>(`articles/${articleId}/stock-changes`, query)
 

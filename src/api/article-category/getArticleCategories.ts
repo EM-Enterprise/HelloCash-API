@@ -1,9 +1,9 @@
 import GET from '@/api/GET'
 import { ArticleCategoryCollection, ArticleCategoryCollectionSchema, validateArticleCategoryCollection } from '@/schemas/article-category/ArticleCategoryCollection'
-import { PaginationSchema } from '@/schemas/Shared/PaginationSchema'
+import { PaginationParamsSchema } from '@/schemas/Shared/PaginationSchema'
 import { z } from 'zod'
 
-export const GetArticleCategoriesParamsSchema = PaginationSchema.pick({ limit: true, offset: true }).extend({
+export const GetArticleCategoriesParamsSchema = PaginationParamsSchema.safeExtend({
   search: z.string().max(100).optional(),
   status: z.enum(['active', 'inactive', 'all']).default('active'),
 })

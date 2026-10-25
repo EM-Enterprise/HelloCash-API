@@ -1,6 +1,6 @@
 import GET from '@/api/GET'
 import { ArticleCollection, ArticleCollectionSchema, validateArticleCollection } from '@/schemas/article/ArticleCollection'
-import { PaginationSchema } from '@/schemas/Shared/PaginationSchema'
+import { PaginationParamsSchema } from '@/schemas/Shared/PaginationSchema'
 import { z } from 'zod'
 
 /**
@@ -12,7 +12,7 @@ import { z } from 'zod'
  * Pagination defaults to 25 articles per page, starting at
  * offset 0. Only active articles are returned by default.
  */
-export const GetArticlesParamsSchema = PaginationSchema.pick({ limit: true, offset: true }).extend({
+export const GetArticlesParamsSchema = PaginationParamsSchema.safeExtend({
   category_id: z.number().int().min(0).optional(),
   manufacturer_id: z.number().int().min(0).optional(),
   search: z.string().max(100).optional(),

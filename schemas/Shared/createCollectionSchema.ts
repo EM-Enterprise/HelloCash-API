@@ -1,4 +1,4 @@
-import { PaginationSchema } from '@/schemas/Shared/PaginationSchema'
+import { PaginationCollectionSchema } from '@/schemas/Shared/PaginationSchema'
 import { z } from 'zod'
 
 /**
@@ -10,6 +10,6 @@ import { z } from 'zod'
 export function createCollectionSchema<T extends z.ZodType>(resourceSchema: T) {
   return z.object({
     data: z.array(resourceSchema),
-    pagination: PaginationSchema,
+    pagination: PaginationCollectionSchema,
   })
 }

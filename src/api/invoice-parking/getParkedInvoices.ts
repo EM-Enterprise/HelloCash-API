@@ -1,11 +1,9 @@
 import { z } from 'zod'
-import { PaginationSchema } from '@/schemas/Shared/PaginationSchema'
+import { PaginationParamsSchema } from '@/schemas/Shared/PaginationSchema'
 import GET from '@/api/GET'
 import { ParkedInvoiceCollection, ParkedInvoiceCollectionSchema, validateParkedInvoiceCollection } from '@/schemas/invoice-parking/ParkedInvoiceCollection'
 
-export const GetParkedInvoicesParamsSchema = PaginationSchema.pick({ limit: true, offset: true })
-
-export type GetParkedInvoicesParams = z.input<typeof GetParkedInvoicesParamsSchema>
+export type GetParkedInvoicesParams = z.input<typeof PaginationParamsSchema>
 
 /**
  * Retrieves a paginated collection of open parked invoices.
@@ -25,7 +23,7 @@ export type GetParkedInvoicesParams = z.input<typeof GetParkedInvoicesParamsSche
  * @see https://myhellocash.com/api/v2/parked-invoices
  */
 export default async function getParkedInvoices(params: GetParkedInvoicesParams = {}): Promise<ParkedInvoiceCollection> {
-  const query = GetParkedInvoicesParamsSchema.parse(params)
+  const query = PaginationParamsSchema.parse(params)
 
   const response = await GET<z.input<typeof ParkedInvoiceCollectionSchema>>('parked-invoices', query)
 

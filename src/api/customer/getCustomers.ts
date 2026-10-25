@@ -1,9 +1,9 @@
 import GET from '@/api/GET'
 import { CustomerCollection, CustomerCollectionSchema, validateCustomerCollection } from '@/schemas/customer/CustomerCollection'
-import { PaginationSchema } from '@/schemas/Shared/PaginationSchema'
+import { PaginationParamsSchema } from '@/schemas/Shared/PaginationSchema'
 import { z } from 'zod'
 
-const GetCustomersParamsSchema = PaginationSchema.pick({ limit: true, offset: true }).extend({
+const GetCustomersParamsSchema = PaginationParamsSchema.safeExtend({
   country_code: z.enum(['at', 'de', 'cz', 'ch', 'sk', 'hu', 'bg', 'pl', 'ro', 'fr', 'es', 'AT', 'DE', 'CZ', 'CH', 'SK', 'HU', 'BG', 'PL', 'RO', 'FR', 'ES']).optional(),
   only_trashed: z.boolean().default(false),
   search: z.string().max(255).optional(),
