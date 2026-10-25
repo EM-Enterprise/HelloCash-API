@@ -1,13 +1,38 @@
 import GET from '@/api/GET'
-import parseRawInvoice from '@/functions/invoices/parseRawInvoice'
-import { RawInvoices } from '@/schemas/invoice/RawInvoices'
-import { Invoice } from '@/schemas/invoice/Invoice'
+import { z } from 'zod'
+import { DateAndStringSchema } from '@/schemas/Shared/DateAndStringSchema'
+import { InvoiceCollection, InvoiceCollectionSchema, validateInvoiceCollection } from '@/schemas/invoice/InvoiceCollection'
 
-export async function getInvoices(limit: number = 1000) {
-  if (limit === 0) return []
-  if (limit < 0) limit = 1000
+const GetInvoicesParamsSchema = z.object({
+  from: DateAndStringSchema.optional(),
+  limit: z.number().int().min(1).max(250).default(25),
+  offset: z.number().int().min(0).default(0),
+  search: z.string().max(255).optional(),
+  status: z.enum(['draft', 'completed', 'cancelled', 'all']).optional(),
+  to: DateAndStringSchema.optional(),
+})
 
-  const { invoices } = await GET<RawInvoices>('invoices', [`limit=${limit}`, 'showDetails=true'])
+export type GetInvoicesParams = z.input<typeof GetInvoicesParamsSchema>
 
-  return invoices.map((i): Invoice => parseRawInvoice(i))
+/**
+ * Retrieves a paginated collection of invoices.
+ *
+ * Only invoices belonging to the company's currently active
+ * entry type (live, test, or demo) are returned.
+ *
+ * Supports filtering by date range, invoice status, and
+ * invoice number or recipient name, as well as pagination.
+ *
+ * @param params - Optional filtering and pagination parameters.
+ * @returns The validated invoice collection and pagination metadata.
+ * @throws {z.ZodError} If the query parameters or API response are invalid.
+ *
+ * @see https://myhellocash.com/api/v2/invoices
+ */
+export default async function getInvoices(params: GetInvoicesParams = {}): Promise<InvoiceCollection> {
+  const query = GetInvoicesParamsSchema.parse(params)
+
+  const response = await GET<z.input<typeof InvoiceCollectionSchema>>('invoices', query)
+
+  return validateInvoiceCollection(response)
 }
