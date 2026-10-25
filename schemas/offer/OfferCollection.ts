@@ -1,14 +1,8 @@
 import { OfferDetailResourceSchema } from '@/schemas/offer/OfferDetailResource'
 import { OfferResourceSchema } from '@/schemas/offer/OfferResource'
+import { PaginationSchema } from '@/schemas/Shared/PaginationSchema'
 import { useSchema } from '@/schemas/utils/useSchema'
 import { z } from 'zod'
-
-export const PaginationSchema = z.object({
-  total: z.number().int(),
-  limit: z.number().int(),
-  offset: z.number().int(),
-  has_more: z.boolean(),
-})
 
 export const OfferCollectionSchema = z.object({
   data: z.array(OfferResourceSchema),
