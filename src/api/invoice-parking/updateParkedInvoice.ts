@@ -1,4 +1,4 @@
-import PUT from '@/api/PUT'
+import PUT from '@/fetch/PUT'
 import { ParkedInvoiceDetailResource, ParkedInvoiceDetailResourceSchema, ParkedInvoiceItemSchema } from '@/schemas/invoice-parking/ParkedInvoiceDetailResource'
 import { createResourceResponseSchema } from '@/schemas/Shared/createResourceResponseSchema'
 import { ParkInvoiceSchema } from '@/src/api/invoice-parking/parkInvoice'

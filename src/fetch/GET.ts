@@ -1,4 +1,4 @@
-import httpRequest from '@/api/HttpRequest'
+import httpRequest from '@/fetch/HttpRequest'
 import { getAuthorization } from '@/config/authorization'
 
 export type QueryParamValue = string | number | boolean | null | undefined | readonly (string | number | boolean)[]

@@ -1,4 +1,4 @@
-import DELETE from '@/api/DELETE'
+import DELETE from '@/fetch/DELETE'
 import { z } from 'zod'
 
 const DeleteCustomerIdSchema = z.number().int()

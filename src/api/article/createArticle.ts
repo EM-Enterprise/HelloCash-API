@@ -1,4 +1,4 @@
-import POST from '@/api/POST'
+import POST from '@/fetch/POST'
 import { ArticleDetailResourceSchema, ArticleDetailResource } from '@/schemas/article/ArticleDetailResource'
 import { createResourceResponseSchema } from '@/schemas/Shared/createResourceResponseSchema'
 import { useSchema } from '@/schemas/utils/useSchema'

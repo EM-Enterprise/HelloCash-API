@@ -1,4 +1,4 @@
-import GET from '@/api/GET'
+import GET from '@/fetch/GET'
 import { InvoiceCollection, InvoiceCollectionSchema } from '@/schemas/invoice/InvoiceCollection'
 import { GetInvoicesParams, GetInvoicesParamsSchema } from '@/src/api/invoice/getInvoices'
 import { z } from 'zod'

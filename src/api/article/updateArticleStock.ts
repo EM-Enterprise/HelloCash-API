@@ -1,4 +1,4 @@
-import POST from '@/api/POST'
+import POST from '@/fetch/POST'
 import { ArticleStockChangeResourceSchema, ArticleStockChangeResource } from '@/schemas/article/stock-changes/ArticleStockChangeResource'
 import { createResourceResponseSchema } from '@/schemas/Shared/createResourceResponseSchema'
 import { z } from 'zod'

@@ -6,7 +6,7 @@ import { getDummyRawInvoices } from '@/schemas/invoice/RawInvoices'
 
 dotenv.config()
 
-const mockedGet = jest.requireActual('@/api/GET')
+const mockedGet = jest.requireActual('@/fetch/GET')
 
 beforeEach(() => {
   setAuthorization(process.env.AUTH_TOKEN!)

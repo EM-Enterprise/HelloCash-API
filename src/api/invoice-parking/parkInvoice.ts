@@ -1,4 +1,4 @@
-import POST from '@/api/POST'
+import POST from '@/fetch/POST'
 import { ParkedInvoiceDetailResource, ParkedInvoiceDetailResourceSchema } from '@/schemas/invoice-parking/ParkedInvoiceDetailResource'
 import { createCollectionSchema } from '@/schemas/Shared/createCollectionSchema'
 import { createResourceResponseSchema } from '@/schemas/Shared/createResourceResponseSchema'

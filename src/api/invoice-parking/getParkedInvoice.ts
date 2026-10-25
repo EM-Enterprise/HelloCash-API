@@ -1,4 +1,4 @@
-import GET from '@/api/GET'
+import GET from '@/fetch/GET'
 import { ParkedInvoiceDetailResourceSchema, ParkedInvoiceDetailResource } from '@/schemas/invoice-parking/ParkedInvoiceDetailResource'
 import { createResourceResponseSchema } from '@/schemas/Shared/createResourceResponseSchema'
 import { z } from 'zod'

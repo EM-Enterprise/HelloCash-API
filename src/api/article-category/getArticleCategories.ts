@@ -1,4 +1,4 @@
-import GET from '@/api/GET'
+import GET from '@/fetch/GET'
 import { ArticleCategoryCollection, ArticleCategoryCollectionSchema, validateArticleCategoryCollection } from '@/schemas/article-category/ArticleCategoryCollection'
 import { PaginationParamsSchema } from '@/schemas/Shared/PaginationSchema'
 import { z } from 'zod'

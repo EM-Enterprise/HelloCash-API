@@ -1,4 +1,4 @@
-import GET from '@/api/GET'
+import GET from '@/fetch/GET'
 import { InvoiceDetailResource, InvoiceDetailResourceSchema } from '@/schemas/invoice/InvoiceDetailResource'
 import { z } from 'zod'
 

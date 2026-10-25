@@ -1,5 +1,5 @@
 import { describe } from '@jest/globals'
-import httpRequest from '@/api/HttpRequest'
+import httpRequest from '@/fetch/HttpRequest'
 import { RawInvoice } from '@/schemas/invoice/RawInvoice'
 
 describe('Testing httpRequest function ', () => {

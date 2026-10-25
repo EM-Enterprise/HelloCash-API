@@ -1,4 +1,4 @@
-import GET from '@/api/GET'
+import GET from '@/fetch/GET'
 import { CustomerCollection, CustomerCollectionSchema, validateCustomerCollection } from '@/schemas/customer/CustomerCollection'
 import { PaginationParamsSchema } from '@/schemas/Shared/PaginationSchema'
 import { z } from 'zod'

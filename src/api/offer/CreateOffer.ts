@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import POST from '@/api/POST'
+import POST from '@/fetch/POST'
 import { CreateOffer, validateCreateOffer } from '@/schemas/offer/OfferCreate'
 import { OfferDetailResource, OfferDetailResourceSchema } from '@/schemas/offer/OfferDetailResource'
 

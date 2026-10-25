@@ -7,7 +7,7 @@ import { getDummyRawArticles } from '@/schemas/article/RawArticles'
 
 dotenv.config()
 
-const mockGet = jest.requireActual('@/api/GET')
+const mockGet = jest.requireActual('@/fetch/GET')
 jest.spyOn(mockGet, 'default').mockImplementation((...args) => {
   const filters = args[1] as string[]
   let limitFilter = filters

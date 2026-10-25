@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { PaginationParamsSchema } from '@/schemas/Shared/PaginationSchema'
-import GET from '@/api/GET'
+import GET from '@/fetch/GET'
 import { ParkedInvoiceCollection, ParkedInvoiceCollectionSchema, validateParkedInvoiceCollection } from '@/schemas/invoice-parking/ParkedInvoiceCollection'
 
 export type GetParkedInvoicesParams = z.input<typeof PaginationParamsSchema>

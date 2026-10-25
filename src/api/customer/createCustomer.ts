@@ -1,4 +1,4 @@
-import POST from '@/api/POST'
+import POST from '@/fetch/POST'
 import { CustomerDetailResourceSchema, CustomerDetailResource } from '@/schemas/customer/CustomerDetailResource'
 import { createResourceResponseSchema } from '@/schemas/Shared/createResourceResponseSchema'
 import { DateTimeSchema } from '@/schemas/Shared/DateTimeSchema'

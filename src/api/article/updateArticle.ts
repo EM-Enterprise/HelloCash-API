@@ -1,4 +1,4 @@
-import PUT from '@/api/PUT'
+import PUT from '@/fetch/PUT'
 import { ArticleDetailResourceSchema, ArticleDetailResource } from '@/schemas/article/ArticleDetailResource'
 import { createResourceResponseSchema } from '@/schemas/Shared/createResourceResponseSchema'
 import { useSchema } from '@/schemas/utils/useSchema'

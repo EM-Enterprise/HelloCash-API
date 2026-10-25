@@ -1,4 +1,4 @@
-import POST from '@/api/POST'
+import POST from '@/fetch/POST'
 import { z } from 'zod'
 
 const DiscardParkedInvoiceSchema = z.object({

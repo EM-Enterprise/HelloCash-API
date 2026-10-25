@@ -1,4 +1,4 @@
-import PUT from '@/api/PUT'
+import PUT from '@/fetch/PUT'
 import { CustomerDetailResourceSchema, CustomerDetailResource } from '@/schemas/customer/CustomerDetailResource'
 import { createResourceResponseSchema } from '@/schemas/Shared/createResourceResponseSchema'
 import { CreateCustomerSchema } from '@/src/api/customer/createCustomer'

@@ -1,4 +1,4 @@
-import GET from '@/api/GET'
+import GET from '@/fetch/GET'
 import { OfferCollection, validateOfferCollection } from '@/schemas/offer/OfferCollection'
 import { z } from 'zod'
 

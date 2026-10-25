@@ -1,4 +1,4 @@
-import httpRequest, { RequestProps } from '@/api/HttpRequest'
+import httpRequest, { RequestProps } from '@/fetch/HttpRequest'
 import { getAuthorization } from '@/config/authorization'
 
 /**

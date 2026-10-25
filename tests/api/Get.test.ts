@@ -1,5 +1,5 @@
 import { beforeEach, describe } from '@jest/globals'
-import GET from '@/api/GET'
+import GET from '@/fetch/GET'
 import { setAuthorization } from '@/config/authorization'
 import { RawInvoices, safeParseRawInvoices } from '@/schemas/invoice/RawInvoices'
 import { RawArticles, safeParseRawArticles } from '@/schemas/article/RawArticles'

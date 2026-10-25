@@ -1,4 +1,4 @@
-import GET from '@/api/GET'
+import GET from '@/fetch/GET'
 import { OfferDetailResource, OfferDetailResourceSchema } from '@/schemas/offer/OfferDetailResource'
 import { z } from 'zod'
 
