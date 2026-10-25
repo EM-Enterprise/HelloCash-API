@@ -55,7 +55,7 @@ const UpdateCustomerResponseSchema = createResourceResponseSchema(CustomerDetail
  *
  * @see https://myhellocash.com/api/v2/customers/{id}
  */
-export default async function updateCustomer(id: z.infer<typeof UpdateCustomerIdSchema>, customer: UpdateCustomerParams): Promise<CustomerDetailResource> {
+export async function updateCustomer(id: z.infer<typeof UpdateCustomerIdSchema>, customer: UpdateCustomerParams): Promise<CustomerDetailResource> {
   const customerId = UpdateCustomerIdSchema.parse(id)
   const body = UpdateCustomerSchema.parse(customer)
 

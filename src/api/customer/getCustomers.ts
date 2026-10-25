@@ -30,7 +30,7 @@ export type GetCustomersParams = z.input<typeof GetCustomersParamsSchema>
  *
  * @see https://myhellocash.com/api/v2/customers
  */
-export default async function getCustomers(params: GetCustomersParams = {}): Promise<CustomerCollection> {
+export async function getCustomers(params: GetCustomersParams = {}): Promise<CustomerCollection> {
   const query = GetCustomersParamsSchema.parse(params)
 
   const response = await GET<z.input<typeof CustomerCollectionSchema>>('customers', query)

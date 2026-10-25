@@ -95,7 +95,7 @@ const UpdateArticleResponseSchema = createResourceResponseSchema(ArticleDetailRe
  *
  * @see https://myhellocash.com/api/v2/articles/{id}
  */
-export default async function updateArticle(id: z.infer<typeof UpdateArticleIdSchema>, article: UpdateArticleParams): Promise<ArticleDetailResource> {
+export async function updateArticle(id: z.infer<typeof UpdateArticleIdSchema>, article: UpdateArticleParams): Promise<ArticleDetailResource> {
   const articleId = UpdateArticleIdSchema.parse(id)
   const body = UpdateArticleSchema.parse(article)
 

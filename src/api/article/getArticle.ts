@@ -25,7 +25,7 @@ const GetArticleResponseSchema = createResourceResponseSchema(ArticleDetailResou
  *
  * @see https://myhellocash.com/api/v2/articles/{id}
  */
-export default async function getArticle(id: z.infer<typeof GetArticleIdSchema>): Promise<ArticleDetailResource> {
+export async function getArticle(id: z.infer<typeof GetArticleIdSchema>): Promise<ArticleDetailResource> {
   const articleId = GetArticleIdSchema.parse(id)
 
   const response = await GET<z.input<typeof GetArticleResponseSchema>>(`articles/${articleId}`)

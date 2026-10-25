@@ -30,7 +30,7 @@ const GetArticleStockChangesIdSchema = z.number().int()
  *
  * @see https://myhellocash.com/docs/api
  */
-export default async function getArticleStockChanges(id: z.infer<typeof GetArticleStockChangesIdSchema>, params: GetArticleStockChangesParams = {}): Promise<ArticleStockChangeCollection> {
+export async function getArticleStockChanges(id: z.infer<typeof GetArticleStockChangesIdSchema>, params: GetArticleStockChangesParams = {}): Promise<ArticleStockChangeCollection> {
   const articleId = GetArticleStockChangesIdSchema.parse(id)
   const query = PaginationParamsSchema.parse(params)
 

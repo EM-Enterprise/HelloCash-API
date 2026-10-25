@@ -22,7 +22,7 @@ const GetParkedInvoiceResponseSchema = createResourceResponseSchema(ParkedInvoic
  *
  * @see https://myhellocash.com/api/v2/parked-invoices/{id}
  */
-export default async function getParkedInvoice(id: number): Promise<ParkedInvoiceDetailResource> {
+export async function getParkedInvoice(id: number): Promise<ParkedInvoiceDetailResource> {
   const invoiceId = GetParkedInvoiceIdSchema.parse(id)
 
   const response = await GET<z.input<typeof GetParkedInvoiceResponseSchema>>(`parked-invoices/${invoiceId}`)

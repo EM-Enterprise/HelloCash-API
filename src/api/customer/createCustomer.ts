@@ -63,7 +63,7 @@ const CreateCustomerResponseSchema = createResourceResponseSchema(CustomerDetail
  *
  * @see https://myhellocash.com/api/v2/customers
  */
-export default async function createCustomer(customer: CreateCustomerParams): Promise<CustomerDetailResource> {
+export async function createCustomer(customer: CreateCustomerParams): Promise<CustomerDetailResource> {
   const body = CreateCustomerSchema.parse(customer)
 
   const response = await POST<z.input<typeof CreateCustomerResponseSchema>>('customers', body)

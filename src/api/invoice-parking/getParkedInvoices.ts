@@ -22,7 +22,7 @@ export type GetParkedInvoicesParams = z.input<typeof PaginationParamsSchema>
  *
  * @see https://myhellocash.com/api/v2/parked-invoices
  */
-export default async function getParkedInvoices(params: GetParkedInvoicesParams = {}): Promise<ParkedInvoiceCollection> {
+export async function getParkedInvoices(params: GetParkedInvoicesParams = {}): Promise<ParkedInvoiceCollection> {
   const query = PaginationParamsSchema.parse(params)
 
   const response = await GET<z.input<typeof ParkedInvoiceCollectionSchema>>('parked-invoices', query)

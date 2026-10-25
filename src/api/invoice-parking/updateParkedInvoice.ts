@@ -36,7 +36,7 @@ const UpdateParkedInvoiceResponseSchema = createResourceResponseSchema(ParkedInv
  *
  * @see https://myhellocash.com/api/v2/parked-invoices/{id}
  */
-export default async function updateParkedInvoice(id: number, invoice: UpdateParkedInvoice): Promise<ParkedInvoiceDetailResource> {
+export async function updateParkedInvoice(id: number, invoice: UpdateParkedInvoice): Promise<ParkedInvoiceDetailResource> {
   const invoiceId = UpdateParkedInvoiceIdSchema.parse(id)
   const body = UpdateParkedInvoiceSchema.parse(invoice)
 

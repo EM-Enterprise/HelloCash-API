@@ -90,7 +90,7 @@ const CreateArticleResponseSchema = createResourceResponseSchema(ArticleDetailRe
  *
  * @see https://myhellocash.com/api/v2/articles
  */
-export default async function createArticle(article: CreateArticleParams): Promise<ArticleDetailResource> {
+export async function createArticle(article: CreateArticleParams): Promise<ArticleDetailResource> {
   const body = CreateArticleSchema.parse(article)
 
   const response = await POST<z.input<typeof CreateArticleResponseSchema>>('articles', body)

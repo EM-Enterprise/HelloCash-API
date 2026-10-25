@@ -29,7 +29,7 @@ export type GetInvoicesParams = z.input<typeof GetInvoicesParamsSchema>
  *
  * @see https://myhellocash.com/api/v2/invoices
  */
-export default async function getInvoices(params: GetInvoicesParams = {}): Promise<InvoiceCollection> {
+export async function getInvoices(params: GetInvoicesParams = {}): Promise<InvoiceCollection> {
   const query = GetInvoicesParamsSchema.parse(params)
 
   const response = await GET<z.input<typeof InvoiceCollectionSchema>>('invoices', query)

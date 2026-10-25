@@ -32,7 +32,7 @@ export type GetOffersParams = z.input<typeof GetOffersParamsSchema>
  *
  * @see https://myhellocash.com/docs/api/operations/offer.index
  */
-export default async function getOffers(params: GetOffersParams = {}): Promise<OfferCollection> {
+export async function getOffers(params: GetOffersParams = {}): Promise<OfferCollection> {
   const query = GetOffersParamsSchema.parse(params)
 
   const response = await GET<OfferCollection>('offers', query)

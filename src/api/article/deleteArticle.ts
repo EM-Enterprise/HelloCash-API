@@ -17,7 +17,7 @@ const DeleteArticleIdSchema = z.number().int()
  *
  * @see https://myhellocash.com/api/v2/articles/{id}
  */
-export default async function deleteArticle(id: z.infer<typeof DeleteArticleIdSchema>): Promise<void> {
+export async function deleteArticle(id: z.infer<typeof DeleteArticleIdSchema>): Promise<void> {
   const articleId = DeleteArticleIdSchema.parse(id)
 
   await DELETE(`articles/${articleId}`)

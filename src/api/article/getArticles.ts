@@ -45,7 +45,7 @@ export type GetArticlesParams = z.input<typeof GetArticlesParamsSchema>
  *
  * @see https://myhellocash.com/api/v2/articles
  */
-export default async function getArticles(params: GetArticlesParams = {}): Promise<ArticleCollection> {
+export async function getArticles(params: GetArticlesParams = {}): Promise<ArticleCollection> {
   const query = GetArticlesParamsSchema.parse(params)
 
   const response = await GET<z.input<typeof ArticleCollectionSchema>>('articles', query)

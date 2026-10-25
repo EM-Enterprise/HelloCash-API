@@ -32,7 +32,7 @@ const DeleteParkedInvoiceIdSchema = z.number().int()
  *
  * @see https://myhellocash.com/api/v2/parked-invoices/{id}/discard
  */
-export default async function deleteParkedInvoice(id: number, params: DeleteParkedInvoiceParams): Promise<void> {
+export async function deleteParkedInvoice(id: number, params: DeleteParkedInvoiceParams): Promise<void> {
   const invoiceId = DeleteParkedInvoiceIdSchema.parse(id)
   const body = DeleteParkedInvoiceSchema.parse(params)
 

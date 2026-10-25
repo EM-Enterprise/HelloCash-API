@@ -29,7 +29,7 @@ const GetCustomerPurchaseHistoryIdSchema = z.number().int()
  *
  * @see https://myhellocash.com/api/v2/customers/{id}/invoices
  */
-export default async function getCustomerPurchaseHistory(id: z.infer<typeof GetCustomerPurchaseHistoryIdSchema>, params: GetInvoicesParams = {}): Promise<InvoiceCollection> {
+export async function getCustomerPurchaseHistory(id: z.infer<typeof GetCustomerPurchaseHistoryIdSchema>, params: GetInvoicesParams = {}): Promise<InvoiceCollection> {
   const customerId = GetCustomerPurchaseHistoryIdSchema.parse(id)
   const query = GetInvoicesParamsSchema.parse(params)
 

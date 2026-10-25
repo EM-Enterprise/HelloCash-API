@@ -17,7 +17,7 @@ const DeleteCustomerIdSchema = z.number().int()
  *
  * @see https://myhellocash.com/api/v2/customers/{id}
  */
-export default async function deleteCustomer(id: z.infer<typeof DeleteCustomerIdSchema>): Promise<void> {
+export async function deleteCustomer(id: z.infer<typeof DeleteCustomerIdSchema>): Promise<void> {
   const customerId = DeleteCustomerIdSchema.parse(id)
 
   await DELETE(`customers/${customerId}`)

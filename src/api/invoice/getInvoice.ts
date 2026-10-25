@@ -21,7 +21,7 @@ const GetInvoiceResponseSchema = z.object({
  *
  * @see https://myhellocash.com/api/v2/invoices/{id}
  */
-export default async function getInvoice(id: number): Promise<InvoiceDetailResource> {
+export async function getInvoice(id: number): Promise<InvoiceDetailResource> {
   const invoiceId = GetInvoiceIdSchema.parse(id)
 
   const response = await GET<z.input<typeof GetInvoiceResponseSchema>>(`invoices/${invoiceId}`)

@@ -28,7 +28,7 @@ export type GetArticleCategoriesParams = z.input<typeof GetArticleCategoriesPara
  *
  * @see https://myhellocash.com/api/v2/article-categories
  */
-export default async function getArticleCategories(params: GetArticleCategoriesParams = {}): Promise<ArticleCategoryCollection> {
+export async function getArticleCategories(params: GetArticleCategoriesParams = {}): Promise<ArticleCategoryCollection> {
   const query = GetArticleCategoriesParamsSchema.parse(params)
 
   const response = await GET<z.input<typeof ArticleCategoryCollectionSchema>>('article-categories', query)

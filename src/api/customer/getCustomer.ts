@@ -23,7 +23,7 @@ const GetCustomerResponseSchema = createResourceResponseSchema(CustomerDetailRes
  *
  * @see https://myhellocash.com/api/v2/customers/{id}
  */
-export default async function getCustomer(id: z.infer<typeof GetCustomerIdSchema>): Promise<CustomerDetailResource> {
+export async function getCustomer(id: z.infer<typeof GetCustomerIdSchema>): Promise<CustomerDetailResource> {
   const customerId = GetCustomerIdSchema.parse(id)
 
   const response = await GET<z.input<typeof GetCustomerResponseSchema>>(`customers/${customerId}`)

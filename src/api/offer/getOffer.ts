@@ -23,7 +23,7 @@ const GetOfferResponseSchema = z.object({
  *
  * @see https://myhellocash.com/api/v2/offers/{id}
  */
-export default async function getOffer(id: z.infer<typeof GetOfferIdSchema>): Promise<OfferDetailResource> {
+export async function getOffer(id: z.infer<typeof GetOfferIdSchema>): Promise<OfferDetailResource> {
   const offerId = GetOfferIdSchema.parse(id)
 
   const response = await GET<z.input<typeof GetOfferResponseSchema>>(`offers/${offerId}`)
