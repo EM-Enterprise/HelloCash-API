@@ -1,6 +1,7 @@
 import POST from '@/api/POST'
 import { ParkedInvoiceDetailResource, ParkedInvoiceDetailResourceSchema } from '@/schemas/invoice-parking/ParkedInvoiceDetailResource'
 import { createCollectionSchema } from '@/schemas/Shared/createCollectionSchema'
+import { createResourceResponseSchema } from '@/schemas/Shared/createResourceResponseSchema'
 import { z } from 'zod'
 
 const ParkInvoiceItemSchema = z
@@ -46,9 +47,7 @@ export const ParkInvoiceSchema = z.object({
 
 export type ParkInvoice = z.infer<typeof ParkInvoiceSchema>
 
-const ParkInvoiceResponseSchema = z.object({
-  data: ParkedInvoiceDetailResourceSchema,
-})
+const ParkInvoiceResponseSchema = createResourceResponseSchema(ParkedInvoiceDetailResourceSchema)
 
 /**
  * Parks an invoice at the standard cash register.
