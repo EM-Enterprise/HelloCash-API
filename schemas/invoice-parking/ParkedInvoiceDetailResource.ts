@@ -2,7 +2,7 @@ import { ParkedInvoiceResourceSchema } from '@/schemas/invoice-parking/ParkedInv
 import { useSchema } from '@/schemas/utils/useSchema'
 import { z } from 'zod'
 
-const ParkedInvoiceItemSchema = z.object({
+export const ParkedInvoiceItemSchema = z.object({
   type: z.string().nullable(),
   article_id: z.number().int().nullable(),
   service_id: z.number().int().nullable(),
