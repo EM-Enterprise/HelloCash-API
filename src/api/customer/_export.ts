@@ -1,0 +1,6 @@
+export { createCustomer } from '@/api/customer/createCustomer'
+export { deleteCustomer } from '@/api/customer/deleteCustomer'
+export { getCustomer } from '@/api/customer/getCustomer'
+export { getCustomerPurchaseHistory } from '@/api/customer/getCustomerPurchaseHistory'
+export { getCustomers } from '@/api/customer/getCustomers'
+export { updateCustomer } from '@/api/customer/updateCustomer'
