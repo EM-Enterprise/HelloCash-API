@@ -26,6 +26,4 @@ export const CreateOfferSchema = z.object({
 
 export type CreateOffer = z.infer<typeof CreateOfferSchema>
 
-export type CreateOfferInput = z.input<typeof CreateOfferSchema>
-
 export const { validateCreateOffer, safeParseCreateOffer } = useSchema(CreateOfferSchema, 'CreateOffer')
