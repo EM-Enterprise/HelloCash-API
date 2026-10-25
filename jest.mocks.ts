@@ -1,7 +1,7 @@
 import { getAuthorization } from '@/config/authorization'
-import { getDummyInvoice } from '@/schemas/invoice/Invoice'
+import { getDummyInvoiceResource } from '@/schemas/invoice/InvoiceResource'
 
-jest.mock('@/api/invoices/getInvoices', () => ({
+jest.mock('@/api/invoice/getInvoices', () => ({
   getInvoices: jest.fn((limit: number) => {
     return new Promise((resolve, rejects) => {
       try {
@@ -10,7 +10,7 @@ jest.mock('@/api/invoices/getInvoices', () => ({
         rejects(err)
       }
 
-      resolve(Array.from({ length: limit === -1 ? 10 : limit }).map(() => getDummyInvoice()))
+      resolve(Array.from({ length: limit === -1 ? 10 : limit }).map(() => getDummyInvoiceResource()))
     })
   }),
 }))
