@@ -1,8 +1,4 @@
 import { describe } from '@jest/globals'
-import parseRawCustomer from '@/functions/customers/parseRawCustomer'
-import { ZodError } from 'zod'
-import { getDummyRawCustomer, RawCustomer } from '@/schemas/customer/RawCustomer'
-import { safeParseCustomer } from '@/schemas/customer/Customer'
 import getOffers from '@/src/api/offer/getOffers'
 import { setAuthorization } from '@/config/authorization'
 
