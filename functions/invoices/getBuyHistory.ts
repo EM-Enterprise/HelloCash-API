@@ -1,8 +1,8 @@
-import { getInvoices } from '@/functions/invoices/getInvoices'
 import { Customer } from '@/schemas/customer/Customer'
 import { InvoiceItem } from '@/schemas/invoice/InvoiceItem'
 import { Invoice } from '@/schemas/invoice/Invoice'
 import { Article } from '@/schemas/article/Article'
+import getInvoices from '@/src/api/invoice/getInvoices'
 
 /**
  * This function returns the buy-history for given array of article-ids.

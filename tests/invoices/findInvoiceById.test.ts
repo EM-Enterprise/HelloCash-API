@@ -1,4 +1,4 @@
-import { getInvoices } from '@/functions/invoices/getInvoices'
+import { getInvoices } from '@/src/api/invoice/getInvoices'
 import * as dotenv from 'dotenv'
 import { setAuthorization } from '@/config/authorization'
 import findInvoiceById from '@/functions/invoices/findInvoiceById'
