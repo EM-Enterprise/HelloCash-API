@@ -19,7 +19,7 @@
       "@/*": ["./*"],
       "@/config/*": ["./config/*"],
       "@/typings/*": ["./typings/*"],
-      "@/functions/*": ["./functions/*"],
+      "@/api/*": ["./src/api/*"],
       "@/schemas/*": ["./schemas/*"],
       "@/lib/*": ["./lib/*"],
       "@/fetch/*": ["./src/fetch/*"]

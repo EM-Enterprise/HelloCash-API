@@ -1,7 +1,7 @@
 import { getAuthorization } from '@/config/authorization'
 import { getDummyInvoice } from '@/schemas/invoice/Invoice'
 
-jest.mock('@/functions/invoices/getInvoices', () => ({
+jest.mock('@/api/invoices/getInvoices', () => ({
   getInvoices: jest.fn((limit: number) => {
     return new Promise((resolve, rejects) => {
       try {

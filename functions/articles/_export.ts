@@ -1,2 +1,2 @@
-export { default as getArticles } from '@/functions/articles/getArticles'
-export { default as getArticleStockChanges } from '@/functions/articles/getArticleStockChanges'
+export { default as getArticles } from '@/api/articles/getArticles'
+export { default as getArticleStockChanges } from '@/api/articles/getArticleStockChanges'

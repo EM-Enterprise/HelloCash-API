@@ -1,1 +1,1 @@
-export { default as getCategories } from '@/functions/categories/getCategories'
+export { default as getCategories } from '@/api/categories/getCategories'
