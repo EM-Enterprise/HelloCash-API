@@ -3,7 +3,7 @@ import parseRawCustomer from '@/functions/customers/parseRawCustomer'
 import { ZodError } from 'zod'
 import { getDummyRawCustomer, RawCustomer } from '@/schemas/customer/RawCustomer'
 import { safeParseCustomer } from '@/schemas/customer/Customer'
-import getOffers from '@/functions/offer/getOffers'
+import getOffers from '@/src/api/offer/getOffers'
 import { setAuthorization } from '@/config/authorization'
 
 describe('Offers: ', () => {
