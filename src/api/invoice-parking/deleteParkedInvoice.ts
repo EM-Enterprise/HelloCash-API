@@ -1,12 +1,12 @@
 import POST from '@/fetch/POST'
 import { z } from 'zod'
 
-const DiscardParkedInvoiceSchema = z.object({
+const DeleteParkedInvoiceSchema = z.object({
   employee_id: z.number().int().min(1),
   reason: z.string().min(1).max(255),
 })
 
-export type DiscardParkedInvoice = z.infer<typeof DiscardParkedInvoiceSchema>
+export type DeleteParkedInvoiceParams = z.infer<typeof DeleteParkedInvoiceSchema>
 
 const DeleteParkedInvoiceIdSchema = z.number().int()
 
@@ -32,9 +32,9 @@ const DeleteParkedInvoiceIdSchema = z.number().int()
  *
  * @see https://myhellocash.com/api/v2/parked-invoices/{id}/discard
  */
-export default async function deleteParkedInvoice(id: number, params: DiscardParkedInvoice): Promise<void> {
+export default async function deleteParkedInvoice(id: number, params: DeleteParkedInvoiceParams): Promise<void> {
   const invoiceId = DeleteParkedInvoiceIdSchema.parse(id)
-  const body = DiscardParkedInvoiceSchema.parse(params)
+  const body = DeleteParkedInvoiceSchema.parse(params)
 
   await POST<void>(`parked-invoices/${invoiceId}/discard`, body)
 }
