@@ -6,5 +6,5 @@ import { getAuthorization } from '@/config/authorization'
  */
 export default async function POST<T>(subRoute: string, body: RequestProps['body']) {
   let requestRoute = `https://myhellocash.com/api/v2/${subRoute}`
-  return httpRequest<T>({ authorizationToken: getAuthorization(), endpoint: requestRoute, body })
+  return httpRequest<T>({ authorizationToken: getAuthorization(), endpoint: requestRoute, body, method: 'POST' })
 }

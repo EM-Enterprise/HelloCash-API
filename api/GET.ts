@@ -34,6 +34,7 @@ export default async function GET<T>(subRoute: string, queryParams?: QueryParams
   }
 
   return httpRequest<T>({
+    method: 'GET',
     authorizationToken: getAuthorization(),
     endpoint: url.toString(),
   })
