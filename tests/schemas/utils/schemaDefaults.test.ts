@@ -134,7 +134,7 @@ describe('#schemaDefaults ', () => {
         .optional(),
     })
 
-    const dummyInstance = schemaDefaults(schema, { includeOptional_NonPrimitiveProperties: true })
+    const dummyInstance = schemaDefaults(schema, { instantiate_Optional_Objects: true })
 
     expect(dummyInstance).toEqual({
       object: {
@@ -153,7 +153,7 @@ describe('#schemaDefaults ', () => {
       exampleOptional: z.string().optional(),
     })
 
-    const dummyInstance = schemaDefaults(schema, { includeOptional_NonPrimitiveProperties: true, includeOptional_PrimitiveProperties: false })
+    const dummyInstance = schemaDefaults(schema, { instantiate_Optional_Objects: true, instantiate_Optional_PrimitiveProps: false })
 
     expect(dummyInstance).toEqual({
       object: {
@@ -180,7 +180,7 @@ describe('#schemaDefaults ', () => {
       array: z.array(z.string()).optional(),
     })
 
-    const dummyInstance = schemaDefaults(schema, { includeOptional_NonPrimitiveProperties: true })
+    const dummyInstance = schemaDefaults(schema, { instantiate_Optional_Objects: true })
 
     expect(dummyInstance).toEqual({
       array: Array.from({ length: DEFAULT_ARRAY_SIZE }).map(() => ''),
