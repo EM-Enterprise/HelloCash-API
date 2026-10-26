@@ -1,5 +1,5 @@
 import { describe } from '@jest/globals'
-import getOffers from '@/src/api/offer/getOffers'
+import { getOffers } from '@/src/api/offer/getOffers'
 import { setAuthorization } from '@/config/authorization'
 
 describe('Offers: ', () => {
