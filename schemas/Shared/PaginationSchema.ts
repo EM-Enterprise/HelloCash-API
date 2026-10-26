@@ -4,8 +4,8 @@ import { z } from 'zod'
  * @internal
  */
 export const PaginationParamsSchema = z.object({
-  limit: z.number().int().min(1).max(250).default(25),
-  offset: z.number().int().min(0).default(0),
+  limit: z.number().int().min(1).max(250).default(25).optional(),
+  offset: z.number().int().min(0).default(0).optional(),
 })
 
 /**
