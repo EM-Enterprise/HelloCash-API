@@ -24,7 +24,7 @@ jobs:
 
       - name: Check if a PR already exists for this branch
         id: pr-check
-        uses: actions/github-script@v6
+        uses: actions/github-script@v9
         env:
           github-token: ${{ secrets.GITHUB_TOKEN }}
         with:
