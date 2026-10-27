@@ -90,6 +90,7 @@ jobs:
         id: open-pr
         uses: repo-sync/pull-request@v2
         with:
+          github_token: ${{ secrets.GH_TOKEN }}
           destination_branch: ${{ env.BASE_BRANCH }}
           pr_title: ${{ steps.build-title.outputs.pr_title }}
           pr_body: ${{ env.PR_DESCRIPTION }}
