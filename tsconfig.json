@@ -4,6 +4,7 @@
     "target": "es6",
     "forceConsistentCasingInFileNames": true,
     "types": ["node", "jest", "jest-expect-message"],
+    "skipLibCheck": true,
     "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
@@ -14,13 +15,15 @@
     "declarationMap": true,
     "stripInternal": false,
     "noImplicitAny": true,
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./*"],
       "@/config/*": ["./config/*"],
-      "@/api/*": ["./api/*"],
       "@/typings/*": ["./typings/*"],
-      "@/functions/*": ["./functions/*"],
-      "@/schemas/*": ["./schemas/*"]
+      "@/api/*": ["./src/api/*"],
+      "@/schemas/*": ["./schemas/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/fetch/*": ["./src/fetch/*"],
+      "@/*": ["./*"]
     }
   },
   "exclude": ["node_modules", "dist", "docs", "tests.ts", "custom-api"]

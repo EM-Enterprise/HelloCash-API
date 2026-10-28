@@ -1,0 +1,5 @@
+version: 1
+general: {}
+secrets-management:
+  project-id: ca03bddf-46ad-4315-947b-5ff12b1d8351
+  environment: dev
