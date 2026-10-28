@@ -27,7 +27,7 @@ const GetDailyReportsParamsSchema = PaginationParamsSchema.safeExtend({
  * Date filters may be Date objects or ISO date strings.
  * All properties are optional.
  */
-export type GetDailyReportsParams = z.infer<typeof GetDailyReportsParamsSchema>
+export type GetDailyReportsParams = z.input<typeof GetDailyReportsParamsSchema>
 
 /**
  * Retrieves a paginated collection of finalized daily
