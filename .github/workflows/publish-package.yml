@@ -69,7 +69,7 @@ jobs:
 
       - name: Set Package version
         if: env.VERSION_ALREADY_PUBLISHED == 'false'
-        run: npm version "$NEW_VERSION" --no-git-tag-version
+        run: npm version "$NEW_VERSION" --no-git-tag-version --allow-same-version
 
       - name: Publish package
         if: env.VERSION_ALREADY_PUBLISHED == 'false'
