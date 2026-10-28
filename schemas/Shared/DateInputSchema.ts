@@ -16,4 +16,4 @@ import z from 'zod'
  * DateInputSchema.parse("2024-01-15");          // "2024-01-15"
  * ```
  */
-export const DateInputSchema = z.union([z.date(), z.iso.date()]).transform((value) => (value instanceof Date ? value.toLocaleDateString('de-DE') : value))
+export const DateInputSchema = z.union([z.date(), z.iso.date()]).transform((value) => (value instanceof Date ? value.toLocaleDateString('sv-SE') : value))
