@@ -32,7 +32,7 @@ export default async function httpRequest<T>({ endpoint, authorizationToken, bod
 
   const responseText = await response.text()
   if (responseText.trim().length === 0) {
-    throw new Error('[Hellocash-API]: Response has not returned any data.')
+    return undefined as T
   }
 
   const json = JSON.parse(responseText)
