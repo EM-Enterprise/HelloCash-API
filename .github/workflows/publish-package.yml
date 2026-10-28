@@ -51,35 +51,38 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           PACKAGE_NAME=$(node -p "require('./package.json').name")
-          echo "Checking $PACKAGE_NAME@$NEW_VERSION"
+          PACKAGE_SPEC="${PACKAGE_NAME}@${NEW_VERSION}"
+
+          echo "Checking $PACKAGE_SPEC"
 
           ERROR_FILE=$(mktemp)
           trap 'rm -f "$ERROR_FILE"' EXIT
 
-          if PUBLISHED_VERSIONS=$(npm view "$PACKAGE_NAME" versions \
+          if PUBLISHED_VERSION=$(npm view "$PACKAGE_SPEC" version \
             --json \
             --registry=https://npm.pkg.github.com \
             2>"$ERROR_FILE"); then
-            echo "Successfully retrieved published versions"
-          elif grep -Eq 'npm (error|ERR!) code E404' "$ERROR_FILE"; then
-            echo "Package not found in registry"
-            PUBLISHED_VERSIONS='[]'
-          else
-            echo "::error::Failed to retrieve published package versions"
-            cat "$ERROR_FILE"
-            exit 1
-          fi
 
-          if PUBLISHED_VERSIONS="$PUBLISHED_VERSIONS" node -e '
-            const versions = JSON.parse(process.env.PUBLISHED_VERSIONS);
-            const list = Array.isArray(versions) ? versions : [versions];
-            process.exit(list.includes(process.env.NEW_VERSION) ? 0 : 1);
-          '; then
+            # Validate that the registry returned the requested version.
+            if ! PUBLISHED_VERSION="$PUBLISHED_VERSION" node -e '
+              const version = JSON.parse(process.env.PUBLISHED_VERSION);
+              if (version !== process.env.NEW_VERSION) process.exit(1);
+            '; then
+              echo "::error::Unexpected registry response for $PACKAGE_SPEC"
+              exit 1
+            fi
+
             echo "VERSION_ALREADY_PUBLISHED=true" >> "$GITHUB_ENV"
             echo "Version $NEW_VERSION is already published"
-          else
+
+          elif grep -Eq '^npm (error|ERR!) code E404' "$ERROR_FILE"; then
             echo "VERSION_ALREADY_PUBLISHED=false" >> "$GITHUB_ENV"
-            echo "Version $NEW_VERSION has not been published"
+            echo "Version $NEW_VERSION was not found"
+
+          else
+            echo "::error::Failed to check package version $PACKAGE_SPEC"
+            cat "$ERROR_FILE"
+            exit 1
           fi
 
       - name: Set Package version
