@@ -1,6 +1,6 @@
 import GET from '@/fetch/GET'
 import { DailyReportCollection, DailyReportCollectionSchema } from '@/schemas/daily-report/DailyReportCollection'
-import { DateAndStringSchema } from '@/schemas/Shared/DateAndStringSchema'
+import { DateInputSchema } from '@/schemas/Shared/DateInputSchema'
 import { DateTimeSchema } from '@/schemas/Shared/DateTimeSchema'
 import { PaginationParamsSchema } from '@/schemas/Shared/PaginationSchema'
 import { z } from 'zod'
@@ -18,8 +18,8 @@ import { z } from 'zod'
  * starting at offset 0.
  */
 const GetDailyReportsParamsSchema = PaginationParamsSchema.safeExtend({
-  from: DateAndStringSchema.optional(),
-  to: DateAndStringSchema.optional(),
+  from: DateInputSchema.optional(),
+  to: DateInputSchema.optional(),
 })
 
 /**

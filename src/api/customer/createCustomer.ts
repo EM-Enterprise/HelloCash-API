@@ -1,7 +1,7 @@
 import POST from '@/fetch/POST'
 import { CustomerDetailResourceSchema, CustomerDetailResource } from '@/schemas/customer/CustomerDetailResource'
 import { createResourceResponseSchema } from '@/schemas/Shared/createResourceResponseSchema'
-import { DateAndStringSchema } from '@/schemas/Shared/DateAndStringSchema'
+import { DateInputSchema } from '@/schemas/Shared/DateInputSchema'
 import { DateTimeSchema } from '@/schemas/Shared/DateTimeSchema'
 import { z } from 'zod'
 
@@ -20,7 +20,7 @@ export const CreateCustomerSchema = z.object({
   city: z.string().max(100).nullable().optional(),
   state: z.string().max(50).nullable().optional(),
 
-  birth_date: DateAndStringSchema.nullable().optional(),
+  birth_date: DateInputSchema.nullable().optional(),
 
   uid_number: z.string().max(50).nullable().optional(),
   tax_number: z.string().max(50).nullable().optional(),

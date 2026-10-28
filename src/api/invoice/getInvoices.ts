@@ -1,15 +1,15 @@
 import GET from '@/fetch/GET'
 import { z } from 'zod'
-import { DateAndStringSchema } from '@/schemas/Shared/DateAndStringSchema'
+import { DateInputSchema } from '@/schemas/Shared/DateInputSchema'
 import { InvoiceCollection, InvoiceCollectionSchema, validateInvoiceCollection } from '@/schemas/invoice/InvoiceCollection'
 
 export const GetInvoicesParamsSchema = z.object({
-  from: DateAndStringSchema.optional(),
+  from: DateInputSchema.optional(),
   limit: z.number().int().min(1).max(250).default(25),
   offset: z.number().int().min(0).default(0),
   search: z.string().max(255).optional(),
   status: z.enum(['draft', 'completed', 'cancelled', 'all']).optional(),
-  to: DateAndStringSchema.optional(),
+  to: DateInputSchema.optional(),
 })
 
 export type GetInvoicesParams = z.input<typeof GetInvoicesParamsSchema>
