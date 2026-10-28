@@ -1,4 +1,4 @@
-import { DateTimeSchema } from '@/schemas/Shared/DateTimeSchema'
+import { DateSchema } from '@/schemas/Shared/DateTimeSchema'
 import { useSchema } from '@/schemas/utils/useSchema'
 import { z } from 'zod'
 
@@ -17,7 +17,7 @@ export const CustomerResourceSchema = z.object({
   city: z.string().nullable(),
   state: z.string().nullable(),
   country_code: z.string().nullable(),
-  birth_date: DateTimeSchema.nullable(),
+  birth_date: DateSchema.nullable(),
   uid_number: z.string().nullable(),
   tax_number: z.string().nullable(),
   passport_number: z.string().nullable(),

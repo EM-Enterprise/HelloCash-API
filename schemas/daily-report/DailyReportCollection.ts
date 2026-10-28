@@ -1,6 +1,6 @@
 import { DailyReportResourceSchema } from '@/schemas/daily-report/DailyReportResource'
 import { createCollectionSchema } from '@/schemas/Shared/createCollectionSchema'
-import { DateTimeSchema } from '@/schemas/Shared/DateTimeSchema'
+import { DateSchema } from '@/schemas/Shared/DateTimeSchema'
 import { useSchema } from '@/schemas/utils/useSchema'
 import { z } from 'zod'
 
@@ -18,8 +18,8 @@ import { z } from 'zod'
  * objects using the shared ApiDateSchema.
  */
 const DailyReportRangeSchema = z.object({
-  from: DateTimeSchema,
-  to: DateTimeSchema,
+  from: DateSchema,
+  to: DateSchema,
 })
 
 type DailyReportRange = z.infer<typeof DailyReportRangeSchema>

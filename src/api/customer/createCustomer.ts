@@ -2,7 +2,6 @@ import POST from '@/fetch/POST'
 import { CustomerDetailResourceSchema, CustomerDetailResource } from '@/schemas/customer/CustomerDetailResource'
 import { createResourceResponseSchema } from '@/schemas/Shared/createResourceResponseSchema'
 import { DateInputSchema } from '@/schemas/Shared/DateInputSchema'
-import { DateTimeSchema } from '@/schemas/Shared/DateTimeSchema'
 import { z } from 'zod'
 
 export const CreateCustomerSchema = z.object({
