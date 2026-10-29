@@ -40,7 +40,7 @@ const CreateArticleSchema = z.object({
   purchase_price: z.number().nullable().optional(),
 
   comment: z.string().nullable().optional(),
-  color: z.string().max(16).nullable().optional(),
+  color: z.string().max(15).nullable().optional(),
 
   quick_edit: z.boolean().default(false),
   bill_reference: z.boolean().default(false),
