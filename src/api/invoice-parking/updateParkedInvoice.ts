@@ -4,9 +4,12 @@ import { createResourceResponseSchema } from '@/schemas/Shared/createResourceRes
 import { ParkInvoiceSchema } from '@/src/api/invoice-parking/parkInvoice'
 import { z } from 'zod'
 
-export const UpdateParkedInvoiceSchema = ParkInvoiceSchema.pick({ name: true, items: true, discount_percent: true, reference: true })
+export const UpdateParkedInvoiceSchema = ParkInvoiceSchema.pick({ name: true, items: true, discount_percent: true, reference: true }).extend({
+  discount_percent: z.number().int().min(0).max(100).optional(),
+  reference: z.boolean().optional(),
+})
 
-export type UpdateParkedInvoice = z.infer<typeof UpdateParkedInvoiceSchema>
+export type UpdateParkedInvoice = z.input<typeof UpdateParkedInvoiceSchema>
 
 const UpdateParkedInvoiceIdSchema = z.number().int()
 
