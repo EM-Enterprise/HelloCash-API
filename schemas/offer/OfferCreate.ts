@@ -13,7 +13,7 @@ const CreateOfferItemSchema = z.object({
   type: z.enum(['article', 'service']).nullable().optional(),
 })
 
-export type CreateOfferItemParams = z.infer<typeof CreateOfferItemSchema>
+export type CreateOfferItemParams = z.input<typeof CreateOfferItemSchema>
 
 export const CreateOfferSchema = z.object({
   items: z.array(CreateOfferItemSchema).min(1).max(500),
@@ -24,6 +24,6 @@ export const CreateOfferSchema = z.object({
   employee_id: z.number().int().min(1).optional(),
 })
 
-export type CreateOfferParams = z.infer<typeof CreateOfferSchema>
+export type CreateOfferParams = z.input<typeof CreateOfferSchema>
 
 export const { validateCreateOffer, safeParseCreateOffer } = useSchema(CreateOfferSchema, 'CreateOffer')
