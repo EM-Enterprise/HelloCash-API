@@ -36,7 +36,7 @@ const ParkInvoiceItemSchema = z
     path: ['discount_value'],
   })
 
-export type ParkInvoiceItem = z.infer<typeof ParkInvoiceItemSchema>
+export type ParkInvoiceItem = z.input<typeof ParkInvoiceItemSchema>
 
 export const ParkInvoiceSchema = z.object({
   name: z.string().min(1).max(150),
@@ -45,7 +45,7 @@ export const ParkInvoiceSchema = z.object({
   reference: z.boolean().default(false),
 })
 
-export type ParkInvoice = z.infer<typeof ParkInvoiceSchema>
+export type ParkInvoice = z.input<typeof ParkInvoiceSchema>
 
 const ParkInvoiceResponseSchema = createResourceResponseSchema(ParkedInvoiceDetailResourceSchema)
 
