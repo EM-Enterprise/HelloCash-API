@@ -2,36 +2,47 @@ import { z } from 'zod'
 import { stripZodDefault } from '@/schemas/utils/stripZodDefaultValues'
 import schemaDefaults, { SchemaOptionalProps } from '@/schemas/utils/schemaDefaults'
 
-/**
- * A hook that provides utility functions for working with zod schemas
- * @param schema - The schema used by the utility functions that are exposed by this hook
- * @returns An object containing utility functions: getDummyObject, validateObject and safeParseObject based on the given schema
- * @internal
- */
-export function useSchema<Type>(schema: z.ZodTypeAny) {
-  /**
-   * Validates a given object against a given schema. Throws an error if the object is invalid
-   * @param object - The object to be validated
-   */
-  const validateObject = (object: any): Type | never => stripZodDefault(schema).parse(object)
+type SchemaUtils<Type> = {
+  validateObject: (object: unknown) => Type
+  safeParseObject: (object: unknown) => z.ZodSafeParseResult<Type>
+  getDummyObject: (options?: SchemaOptionalProps) => Type
+}
 
-  /**
-   * Returns a dummy object based on a given schema
-   * @param options - Defines how optional properties should be handled in terms of their instantiation (undefined / value)
-   */
-  function getDummyObject(options?: SchemaOptionalProps): Type {
+type NamedSchemaUtils<Type, Name extends string> = {
+  [Key in `validate${Name}`]: SchemaUtils<Type>['validateObject']
+} & {
+  [Key in `safeParse${Name}`]: SchemaUtils<Type>['safeParseObject']
+} & {
+  [Key in `getDummy${Name}`]: SchemaUtils<Type>['getDummyObject']
+}
+
+/**
+ * Provides schema-bound validation, safe parsing, and dummy object creation.
+ * When a name is provided, returns methods with schema-specific property names.
+ */
+export function useSchema<Schema extends z.ZodType, const Name extends string>(schema: Schema, name: Name): NamedSchemaUtils<z.infer<Schema>, Name>
+
+/** Retains the original API, including explicit type arguments. */
+export function useSchema<Type>(schema: z.ZodType): SchemaUtils<Type>
+
+export function useSchema(schema: z.ZodType, name?: string) {
+  const strippedSchema = stripZodDefault(schema)
+
+  const validateObject = (object: unknown) => strippedSchema.parse(object)
+
+  function getDummyObject(options?: SchemaOptionalProps) {
     return schemaDefaults(schema, options)
   }
 
-  /**
-   * Safely parses an object against its schema and returns the result of the zod.safeParse method
-   * @param rawCustomer - The object to be parsed / validated
-   */
-  const safeParseObject = (object: any): z.SafeParseReturnType<any, Type> => stripZodDefault(schema).safeParse(object)
+  const safeParseObject = (object: unknown) => strippedSchema.safeParse(object)
+
+  if (name === undefined) {
+    return { getDummyObject, validateObject, safeParseObject }
+  }
 
   return {
-    getDummyObject,
-    validateObject,
-    safeParseObject,
+    [`validate${name}`]: validateObject,
+    [`safeParse${name}`]: safeParseObject,
+    [`getDummy${name}`]: getDummyObject,
   }
 }

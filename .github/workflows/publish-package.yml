@@ -11,62 +11,88 @@ permissions:
 jobs:
   publish-package:
     runs-on: ubuntu-latest
-    
-    env:
-      REPO_NAME: ${{ github.repository }}
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node 21
-        uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          node-version: '21'
-          registry-url: 'https://npm.pkg.github.com'
+          fetch-depth: "0"
 
-      - run: |
-          echo "//npm.pkg.github.com/:_authToken=${{secrets.NPM_TOKEN}}" > .npmrc
+      - name: Set up Node 24.22.1
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.22.1
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@em-enterprise"
 
       - name: Install Dependencies
-        run: yarn
+        run: yarn --frozen-lockfile
 
-      - name: 'Get Previous tag'
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@v1"
-        with:
-          fallback: v1.0.0 # Optional fallback tag to use when no tag can be found
-
-      - run: |
-          echo "NEW_VERSION=${{ steps.previoustag.outputs.tag }}" >> $GITHUB_ENV
-
-
-      - name: Check if Version is Already Published
-        id: check_published
+      - name: Determine package version and distribution tag
         run: |
-          echo "Checking if version ${NEW_VERSION} is already published"
-          PACKAGE_NAME=$(node -p "require('./package.json').name")
-          
-          # Attempt to fetch published versions; handle failure if no versions are published
-          PUBLISHED_VERSIONS=$(npm show "$PACKAGE_NAME" versions --json 2>/dev/null || echo "[]")
-          echo "Published versions: $PUBLISHED_VERSIONS"
-          
-          if echo "$PUBLISHED_VERSIONS" | grep -q "\"${NEW_VERSION}\""; then
-            echo "VERSION_ALREADY_PUBLISHED=true" >> $GITHUB_ENV
+          VERSION="${GITHUB_REF_NAME#v}"
+
+          if [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            DIST_TAG="latest"
+          elif [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+-canary\.[0-9]+$ ]]; then
+            DIST_TAG="canary"
           else
-            echo "VERSION_ALREADY_PUBLISHED=false" >> $GITHUB_ENV
+            echo "Unsupported release tag: $GITHUB_REF_NAME"
+            exit 1
           fi
 
-      - name: Set Package Version
-        if: env.VERSION_ALREADY_PUBLISHED == 'false'
-        id: set_version
-        run: |
-          npm version ${NEW_VERSION} --no-git-tag-version
-          echo "Increased package version to ${NEW_VERSION}"
+          echo "NEW_VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "DIST_TAG=$DIST_TAG" >> "$GITHUB_ENV"
+          echo "Release version: $VERSION (npm tag: $DIST_TAG)"
 
-      - name: Publish Package
-        if: env.VERSION_ALREADY_PUBLISHED == 'false'
+      - name: Check if version is already published
+        id: check_published
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          echo "Publishing package version ${NEW_VERSION}"
-          npm publish
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          PACKAGE_SPEC="${PACKAGE_NAME}@${NEW_VERSION}"
+
+          echo "Checking $PACKAGE_SPEC"
+
+          ERROR_FILE=$(mktemp)
+          trap 'rm -f "$ERROR_FILE"' EXIT
+
+          if PUBLISHED_VERSION=$(npm view "$PACKAGE_SPEC" version \
+            --json \
+            --registry=https://npm.pkg.github.com \
+            2>"$ERROR_FILE"); then
+
+            # Validate that the registry returned the requested version.
+            if ! PUBLISHED_VERSION="$PUBLISHED_VERSION" node -e '
+              const version = JSON.parse(process.env.PUBLISHED_VERSION);
+              if (version !== process.env.NEW_VERSION) process.exit(1);
+            '; then
+              echo "::error::Unexpected registry response for $PACKAGE_SPEC"
+              exit 1
+            fi
+
+            echo "VERSION_ALREADY_PUBLISHED=true" >> "$GITHUB_ENV"
+            echo "Version $NEW_VERSION is already published"
+
+          elif grep -Eq '^npm (error|ERR!) code E404' "$ERROR_FILE"; then
+            echo "VERSION_ALREADY_PUBLISHED=false" >> "$GITHUB_ENV"
+            echo "Version $NEW_VERSION was not found"
+
+          else
+            echo "::error::Failed to check package version $PACKAGE_SPEC"
+            cat "$ERROR_FILE"
+            exit 1
+          fi
+
+      - name: Set Package version
+        if: env.VERSION_ALREADY_PUBLISHED == 'false'
+        run: npm version "$NEW_VERSION" --no-git-tag-version --allow-same-version
+
+      - name: Publish package
+        if: env.VERSION_ALREADY_PUBLISHED == 'false'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "Publishing $NEW_VERSION with npm tag $DIST_TAG"
+          npm publish --tag "$DIST_TAG" --registry=https://npm.pkg.github.com
