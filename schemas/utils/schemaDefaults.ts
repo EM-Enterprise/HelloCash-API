@@ -139,10 +139,10 @@ export default function schemaDefaults<Schema extends z.ZodType>(schema: Schema,
       const innerType = getType(inner)
 
       if (innerType === 'object' || innerType === 'array') {
-        return (options.instantiate_Nullable_Objects ? schemaDefaults(inner, options) : undefined) as z.output<Schema>
+        return (options.instantiate_Nullable_Objects ? schemaDefaults(inner, options) : null) as z.output<Schema>
       }
 
-      return (options.instantiate_Nullable_PrimitiveProps ? schemaDefaults(inner, options) : undefined) as z.output<Schema>
+      return (options.instantiate_Nullable_PrimitiveProps ? schemaDefaults(inner, options) : null) as z.output<Schema>
     }
 
     case 'optional': {
