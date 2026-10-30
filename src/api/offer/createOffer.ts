@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import POST from '@/fetch/POST'
-import { CreateOfferParams, validateCreateOffer } from '@/schemas/offer/OfferCreate'
+import { CreateOfferParams, CreateOfferSchema, validateCreateOffer } from '@/schemas/offer/OfferCreate'
 import { OfferDetailResource, OfferDetailResourceSchema } from '@/schemas/offer/OfferDetailResource'
 
 const CreateOfferResponseSchema = z.object({
@@ -21,7 +21,7 @@ const CreateOfferResponseSchema = z.object({
  * @see https://myhellocash.com/api/v2/offers
  */
 export async function createOffer(offer: CreateOfferParams): Promise<OfferDetailResource> {
-  const body = validateCreateOffer(offer)
+  const body = CreateOfferSchema.parse(offer)
 
   const response = await POST<CreateOfferParams>('offers', body)
 
